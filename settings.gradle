@@ -1,1 +1,1 @@
-include ':sample', ':tabanimation'
+include ':sample', ':library'
