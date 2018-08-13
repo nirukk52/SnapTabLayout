@@ -1,14 +1,15 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'org.jetbrains.dokka-android'
 
 ext {
-    bintrayRepo = 'TablayoutAnimation'
-    bintrayName = 'FluidTablayoutAnimation'
+    bintrayRepo = 'animation'
+    bintrayName = 'VPAnimatedTablayout'
 
     publishedGroupId = 'com.fridayof1995'
-    libraryName = 'FluidTablayoutAnimation'
-    artifact = 'FluidTablayoutAnimation'
+    libraryName = 'VPAnimatedTablayout'
+    artifact = 'VPAnimatedTablayout'
 
     libraryDescription = 'A wrapper for Tablayout with custom animation on Android'
 
@@ -16,7 +17,7 @@ ext {
     gitUrl = 'https://github.com/nirukk52/VPAnimatedTablayout.git'
 
     libraryVersion = '0.0.1'
-   // https://dl.bintray.com/nirukk52/AnimatedViewPagerTabs
+    // https://dl.bintray.com/nirukk52/AnimatedViewPagerTabs
     developerId = 'nirukk52'
     developerName = 'Niranjan Kurambhatti'
     developerEmail = 'niranjan.kurambhatti@gmail.com'
@@ -28,8 +29,6 @@ ext {
 
 android {
     compileSdkVersion 28
-
-
 
     defaultConfig {
         minSdkVersion 19
@@ -60,9 +59,17 @@ android {
 //    }
 //}
 
-tasks.withType(Javadoc).all {
-    enabled = false
+//subprojects {
+//    tasks.withType(Javadoc).all {
+//        enabled = false
+//    }
+//}
+
+dokka {
+    outputFormat = 'html'
+    outputDirectory = "$buildDir/javadoc"
 }
+
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
@@ -79,5 +86,5 @@ repositories {
     mavenCentral()
 }
 apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/installv1.gradle'
-apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/bintrayv1.gradle'
+apply from: 'bintrayv1.gradle'
 

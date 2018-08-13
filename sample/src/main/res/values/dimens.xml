@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="backdrop_rect_corner_radius">8dp</dimen>
+    <dimen name="backdrop_rect_corner_radius">40dp</dimen>
 </resources>
