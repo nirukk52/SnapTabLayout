@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name="com.fridayof1995.sample.MainActivity"
-            android:theme="@style/FullScreen"
+            android:theme="@style/Theme.AppCompat.DayNight.DarkActionBar"
             >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
