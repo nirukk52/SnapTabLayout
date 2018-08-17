@@ -2,7 +2,6 @@ package com.fridayof1995.tabanimation
 
 import android.animation.ArgbEvaluator
 import android.content.Context
-import android.content.res.Resources
 import android.support.annotation.DrawableRes
 import android.support.v4.content.ContextCompat
 import android.support.v4.view.ViewPager
@@ -10,6 +9,7 @@ import android.util.AttributeSet
 import android.util.Log
 import android.util.TypedValue
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewTreeObserver
 import android.widget.FrameLayout
 import kotlinx.android.synthetic.main.smart_tabs_view.view.*
@@ -25,13 +25,15 @@ constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 
 
     val mArgbEvaluator: ArgbEvaluator = ArgbEvaluator()
-    val mCenterColor: Int = ContextCompat.getColor(context, android.R.color.white)
-    val mSideColor: Int = ContextCompat.getColor(context, R.color.colorSideTab)
-    var centerPadding: Int = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP
+    val mCenterColor: Int = ContextCompat.getColor(context, android.R.color.holo_purple)
+    val mSideColor: Int = ContextCompat.getColor(context, android.R.color.holo_orange_dark)
+    var defaultOffsetFromCenter: Int = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP
             , 80f, resources.displayMetrics).toInt()
 
     var expandedAt: Int = 0
+    var numOfTabs: Int = 3
     var mEndViewsTranslationX: Int? = null
+    var mMidViewsTranslationX: Int? = null
     var mCenterTranslationY: Int? = null
 
     private var icons: ArrayList<Int> = getDefaultIcons()
@@ -44,10 +46,13 @@ constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
                 0, 0)
 
         try {
-            expandedAt = a.getInteger(R.styleable.VPAnimatedTabLayout_expandedAt, 0)
-            if (expandedAt < 2) {
-                centerPadding = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP
-                        , 44f, resources.displayMetrics).toInt()
+            expandedAt = a.getInteger(R.styleable.VPAnimatedTabLayout_expandedAt
+                    , 0)
+            numOfTabs = a.getInteger(R.styleable.VPAnimatedTabLayout_numOfTabs
+                    , 0)
+            if (numOfTabs <= 3) {
+                mid_start.visibility = View.GONE
+                mid_end.visibility = View.GONE
             }
         } finally {
             a.recycle()
@@ -68,16 +73,17 @@ constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 
 
     private fun collapseTabs(positionOffset: Float) {
-        // collapses when position ==  1
+        // collapses at position ==  1
         setTabChangingColor(positionOffset)
-        mIndicator.translationX = (positionOffset * centerPadding * 1.9f)
+        //  mIndicator.translationX = (positionOffset * (start.x + start.width - convertDpToPixel(8f, context)))
     }
 
     private fun expandTabs(positionOffset: Float) {
-        // expands when position == 0
+        // expands at position == 0
         setTabChangingColor(1 - positionOffset)
-        mIndicator.translationX = ((positionOffset - 1) * centerPadding * 1.9f)
+        //  mIndicator.translationX = ((positionOffset - 1) * (start.x + start.width - convertDpToPixel(8f, context)))
     }
+
 
     override fun onPageSelected(position: Int) {
     }
@@ -91,8 +97,17 @@ constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
         viewPager.setPageTransformer(true, StackTransformer())
         bottom_center.getViewTreeObserver().addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
             override fun onGlobalLayout() {
-                mEndViewsTranslationX = (bottom_center.x - start.x - centerPadding).toInt()
+
+                defaultOffsetFromCenter = (center.width / 2)
+                if (numOfTabs > 3) {
+                    mMidViewsTranslationX = (center.x - mid_start.x + defaultOffsetFromCenter - 40).toInt()
+                    mEndViewsTranslationX = (center.x - start.x - mid_start.width + defaultOffsetFromCenter - 40).toInt()
+                } else {
+                    mMidViewsTranslationX = (center.x - mid_start.x - defaultOffsetFromCenter + 40).toInt()
+                    mEndViewsTranslationX = (center.x - start.x - mid_start.width - defaultOffsetFromCenter + 40).toInt()
+                }
                 mCenterTranslationY = height - bottom_center.bottom
+
                 bottom_center.getViewTreeObserver().removeOnGlobalLayoutListener(this)
                 viewPager.currentItem = expandedAt
             }
@@ -100,43 +115,58 @@ constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 
         center.setOnClickListener() {
             if (viewPager.currentItem != 1) {
-                viewPager.setCurrentItem(1)
-
-//                val centreX = center.x
-//                mIndicator.x = centreX
+                viewPager.currentItem = 1
             }
         }
         start.setOnClickListener() {
             if (viewPager.currentItem != 0) {
-                viewPager.setCurrentItem(0)
-
-//                val centreX = start.x
-//                mIndicator.x = centreX
-
+                viewPager.currentItem = 0
             }
         }
         end.setOnClickListener() {
             if (viewPager.currentItem != 2) {
-                viewPager.setCurrentItem(2)
-
-//                val centreX = end.x
-//                mIndicator.x = centreX
+                viewPager.currentItem = 2
             }
         }
     }
 
+    private fun moveViews(fractionFromCenter: Float) {
 
-    fun setIcons(@DrawableRes largeCenterIcon: Int = R.drawable.ic_ring,
-                 @DrawableRes smallCenterIcon: Int = R.drawable.ic_view_white,
-                 @DrawableRes startIcon: Int = R.drawable.ic_comment_white,
-                 @DrawableRes endIcon: Int = R.drawable.ic_white_whatshot) {
+        val endTranslation: Float = mEndViewsTranslationX?.times(fractionFromCenter)
+                ?: defaultOffsetFromCenter.toFloat()
+
+        val midTranslation: Float = mMidViewsTranslationX?.times(fractionFromCenter)
+                ?: defaultOffsetFromCenter.toFloat()
+
+        start.translationX = endTranslation
+        end.translationX = -endTranslation
+        mid_start.translationX = midTranslation
+        mid_end.translationX = -midTranslation
+    }
+
+
+    fun expandAt(expandedAt: Int) {
+        this.expandedAt = expandedAt
+        invalidate()
+        requestLayout()
+        expandTabs(1f)
+    }
+
+    fun collpaseAt(collapseAt: Int) {
+        collapseTabs(1f)
+    }
+
+    public fun setIcons(@DrawableRes largeCenterIcon: Int = R.drawable.ic_ring,
+                        @DrawableRes smallCenterIcon: Int = R.drawable.ic_view_white,
+                        @DrawableRes startIcon: Int = R.drawable.ic_comment_white,
+                        @DrawableRes endIcon: Int = R.drawable.ic_white_whatshot) {
         center.setImageResource(largeCenterIcon)
         bottom_center.setImageResource(smallCenterIcon)
         start.setImageResource(startIcon)
         end.setImageResource(endIcon)
     }
 
-    fun getDefaultIcons(): ArrayList<Int> {
+    private fun getDefaultIcons(): ArrayList<Int> {
         var icons: ArrayList<Int> = ArrayList<Int>()
         icons.add(R.drawable.ic_ring)
         icons.add(R.drawable.ic_view_white)
@@ -151,45 +181,34 @@ constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
         val centerTranslationY: Float? = mCenterTranslationY?.times(fractionFromCenter)
 
         if (centerTranslationY != null) {
-            center.translationY = centerTranslationY * 3.5f
-            bottom_center.translationY = centerTranslationY * 3.5f
+            center.translationY = centerTranslationY * 4f
+            bottom_center.translationY = centerTranslationY * 4f
         }
 
 
         val centerScale: Float = 1 - fractionFromCenter
         Log.e("onPageSelected", "position  $centerScale fractionFromCenter  $fractionFromCenter ")
 
-        if (centerScale > 0.8f) {
+        if (centerScale > 0.85f) {
             center.scaleX = centerScale
             center.scaleY = centerScale
         }
-        bottom_center.alpha =  centerScale
+        bottom_center.alpha = centerScale
         bottom_center.scaleY = centerScale
         bottom_center.scaleX = centerScale
     }
 
-    private fun moveViews(fractionFromCenter: Float) {
 
-        val translation: Float = mEndViewsTranslationX?.times(fractionFromCenter)
-                ?: centerPadding.toFloat()
-
-        start.translationX = translation
-        end.translationX = -translation
-    }
-
-
-    fun setTabChangingColor(fractionFromCenter: Float) {
-        //    val color = mArgbEvaluator.evaluate(fractionFromCenter, mCenterColor, mSideColor) as Int
-
+    private fun setTabChangingColor(fractionFromCenter: Float) {
+//        val color = mArgbEvaluator.evaluate(fractionFromCenter, mCenterColor, mSideColor) as Int
+//
 //        center.setColorFilter(color)
 //        bottom_center.setColorFilter(color)
 //        start.setColorFilter(color)
 //        end.setColorFilter(color)
 
-        mIndicator.alpha = fractionFromCenter
-        mIndicator.scaleX = fractionFromCenter
-//        Log.e("setTabChangingColor", "fractionFromCenter  $fractionFromCenter")
-
+//        mIndicator.alpha = fractionFromCenter
+//        mIndicator.scaleX = fractionFromCenter
 
         transitionBackground.alpha = fractionFromCenter
 
@@ -197,10 +216,6 @@ constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
         moveAndScaleCenter(fractionFromCenter)
     }
 
-    fun dpToPx(dp: Float): Int {
-        val density = Resources.getSystem().displayMetrics.density
-        return Math.round(dp * density)
-    }
 
     enum class Color(val value: Int) {
         RED(0),

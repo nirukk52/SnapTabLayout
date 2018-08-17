@@ -18,13 +18,12 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-
     <com.fridayof1995.tabanimation.AnimatedTabLayout
         android:id="@+id/tabLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        custom:expandedAt="4"
-        />
+        custom:expandedAt="1"
+        custom:numOfTabs="4" />
 
 </RelativeLayout>

@@ -9,35 +9,36 @@
     <View
         android:id="@+id/transitionBackground"
         android:layout_width="match_parent"
-        android:layout_height="120dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:background="@drawable/tab_gradient" />
+        android:layout_height="130dp"
+        android:background="@drawable/tab_gradient"
+        app:layout_constraintBottom_toBottomOf="parent" />
 
     <ImageButton
         android:id="@+id/center"
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:background="@android:color/transparent"
-        android:src="@drawable/ic_ring"
+        android:src="@drawable/shadow_ring"
+        app:layout_constraintBottom_toTopOf="@id/bottom_center"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
         android:id="@+id/bottom_center"
-        android:layout_width="32dp"
+        android:layout_width="48dp"
         android:layout_height="32dp"
         android:background="@android:color/transparent"
         android:src="@drawable/ic_view_white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/center" />
+        app:layout_constraintBottom_toBottomOf="@id/end"
+        app:layout_constraintEnd_toStartOf="@id/end"
+        app:layout_constraintStart_toEndOf="@id/start"
+        app:layout_constraintTop_toTopOf="@id/start" />
 
     <ImageButton
         android:id="@+id/start"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="20dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:background="@android:color/transparent"
         android:src="@drawable/ic_comment_white"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -46,21 +47,40 @@
 
     <ImageButton
         android:id="@+id/end"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginEnd="20dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:background="@android:color/transparent"
         android:src="@drawable/ic_white_whatshot"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/center" />
 
+    <ImageButton
+        android:id="@+id/mid_start"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:background="@android:color/transparent"
+        android:src="@drawable/ic_comment_white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/bottom_center"
+        app:layout_constraintStart_toEndOf="@id/start"
+        app:layout_constraintTop_toBottomOf="@id/center" />
+
+    <ImageButton
+        android:id="@+id/mid_end"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:background="@android:color/transparent"
+        android:src="@drawable/ic_white_whatshot"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/end"
+        app:layout_constraintStart_toEndOf="@id/bottom_center"
+        app:layout_constraintTop_toBottomOf="@id/center" />
+
     <View
         android:id="@+id/mIndicator"
         android:layout_width="48dp"
         android:layout_height="4dp"
-        android:layout_marginBottom="4dp"
-        android:layout_marginTop="4dp"
         android:background="@drawable/tab_indicator"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

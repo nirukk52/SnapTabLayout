@@ -3,5 +3,6 @@
 
     <declare-styleable name="VPAnimatedTabLayout">
         <attr name="expandedAt" format="integer" />
+        <attr name="numOfTabs" format="integer" />
     </declare-styleable>
 </resources>

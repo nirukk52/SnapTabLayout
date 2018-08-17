@@ -19,6 +19,11 @@ class MainActivity : AppCompatActivity() {
         viewPagerAdapter.addFragment(MainFragment.newInstance(2))
         viewPagerAdapter.addFragment(MainFragment.newInstance(3))
         viewPagerAdapter.addFragment(MainFragment.newInstance(4))
+        viewPagerAdapter.addFragment(MainFragment.newInstance(5))
+        viewPagerAdapter.addFragment(MainFragment.newInstance(6))
+        viewPagerAdapter.addFragment(MainFragment.newInstance(7))
+        viewPagerAdapter.addFragment(MainFragment.newInstance(8))
+        viewPagerAdapter.addFragment(MainFragment.newInstance(10))
 
 
 
@@ -30,6 +35,7 @@ class MainActivity : AppCompatActivity() {
 //        moveToCenter.setOnClickListener { tabLayout.setTabChangingColor(0f) }
 //
 //        moveToEnd.setOnClickListener { tabLayout.setTabChangingColor(1f) }
+
 
         viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
@@ -62,4 +68,5 @@ class MainActivity : AppCompatActivity() {
             }
         })
     }
+
 }

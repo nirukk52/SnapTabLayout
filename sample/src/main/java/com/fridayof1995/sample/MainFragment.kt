@@ -8,6 +8,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.EditText
+import android.widget.TextView
+import com.fridayof1995.tabanimation.hideKeyboardFrom
+import kotlinx.android.synthetic.main.activity_main.*
 
 
 class MainFragment : Fragment() {
@@ -26,9 +30,11 @@ class MainFragment : Fragment() {
         val view: View = inflater.inflate(R.layout.fragment_main, container, false)
 
         val btFragmentNumber: Button = view.findViewById(R.id.btFragmentNumber) as Button
+        val btSetExpands: TextView = view.findViewById(R.id.btSetExpands) as TextView
+        val etExpandsAt: EditText = view.findViewById(R.id.etExpandsAt) as EditText
         val backdropCard: CardView = view.findViewById(R.id.backdropCard) as CardView
 
-        if (fragmentNumber == 1) {
+        if (fragmentNumber == 1 ||fragmentNumber == 4) {
             backdropCard.visibility = View.INVISIBLE
         }
 
@@ -36,6 +42,11 @@ class MainFragment : Fragment() {
         btFragmentNumber.setOnClickListener {
             context?.toast("Fragment number $fragmentNumber")
         }
+        btSetExpands.setOnClickListener() {
+            activity?.tabLayout?.expandAt(etExpandsAt.text.toString().toInt())
+            hideKeyboardFrom(context,view)
+        }
+
         return view
     }
 
