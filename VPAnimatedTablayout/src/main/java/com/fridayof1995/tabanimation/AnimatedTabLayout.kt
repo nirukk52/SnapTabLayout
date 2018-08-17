@@ -66,24 +66,44 @@ constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 
     override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
         Log.e("onPageScrolled", "position $position positionOffset$positionOffset")
-        if (position == expandedAt - 1) expandTabs(positionOffset) // expand
-        else if (position == expandedAt) collapseTabs(positionOffset) // collapse
+        if (position == expandedAt - 1) expandTabs(positionOffset, position) // expand
+        else if (position == expandedAt) collapseTabs(positionOffset, position) // collapse
 
     }
 
 
-    private fun collapseTabs(positionOffset: Float) {
+    private fun collapseTabs(positionOffset: Float, position: Int) {
         // collapses at position ==  1
         setTabChangingColor(positionOffset)
-        //  mIndicator.translationX = (positionOffset * (start.x + start.width - convertDpToPixel(8f, context)))
+        if (numOfTabs <= 3) {
+            mIndicator.translationX = (positionOffset * (start.x + start.width - convertDpToPixel(8f, context)))
+        } else {
+//            when (position) {
+//                expandedAt - 1 -> {
+//                    moveIndicatorWithFiveTabs(positionOffset, mid_start.width)
+//                }
+//                expandedAt - 2 -> {
+//                    moveIndicatorWithFiveTabs(positionOffset, start.width)
+//                }
+//                expandedAt + 1 -> {
+//                    moveIndicatorWithFiveTabs(positionOffset, mid_end.width)
+//                }
+//                expandedAt + 1 -> {
+//                    moveIndicatorWithFiveTabs(positionOffset, end.width)
+//                }
+//            }
+        }
     }
 
-    private fun expandTabs(positionOffset: Float) {
+    private fun expandTabs(positionOffset: Float, position: Int) {
         // expands at position == 0
         setTabChangingColor(1 - positionOffset)
-        //  mIndicator.translationX = ((positionOffset - 1) * (start.x + start.width - convertDpToPixel(8f, context)))
+        //mIndicator.translationX = ((positionOffset - 1) * (start.x + start.width - convertDpToPixel(8f, context)))
     }
 
+    fun moveIndicatorWithFiveTabs(positionOffset: Float, widthOfTopView: Int) {
+        mIndicator.translationX = (positionOffset * (start.x + start.width - convertDpToPixel(8f, context)))
+    }
 
     override fun onPageSelected(position: Int) {
     }
@@ -100,8 +120,13 @@ constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 
                 defaultOffsetFromCenter = (center.width / 2)
                 if (numOfTabs > 3) {
-                    mMidViewsTranslationX = (center.x - mid_start.x + defaultOffsetFromCenter - 40).toInt()
-                    mEndViewsTranslationX = (center.x - start.x - mid_start.width + defaultOffsetFromCenter - 40).toInt()
+                    if (expandedAt < 2) {
+                        mMidViewsTranslationX = (center.x - mid_start.x + defaultOffsetFromCenter - 40).toInt()
+                        mEndViewsTranslationX = (center.x - start.x - mid_start.width + defaultOffsetFromCenter - 40).toInt()
+                    } else {
+                        mMidViewsTranslationX = (center.x - mid_start.x + defaultOffsetFromCenter - 40 * 6).toInt()
+                        mEndViewsTranslationX = (center.x - start.x - mid_start.width + defaultOffsetFromCenter - 40 * 6).toInt()
+                    }
                 } else {
                     mMidViewsTranslationX = (center.x - mid_start.x - defaultOffsetFromCenter + 40).toInt()
                     mEndViewsTranslationX = (center.x - start.x - mid_start.width - defaultOffsetFromCenter + 40).toInt()
@@ -149,11 +174,11 @@ constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
         this.expandedAt = expandedAt
         invalidate()
         requestLayout()
-        expandTabs(1f)
+        expandTabs(1f, expandedAt)
     }
 
     fun collpaseAt(collapseAt: Int) {
-        collapseTabs(1f)
+        collapseTabs(1f, 1)
     }
 
     public fun setIcons(@DrawableRes largeCenterIcon: Int = R.drawable.ic_ring,

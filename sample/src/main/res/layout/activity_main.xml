@@ -24,6 +24,6 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         custom:expandedAt="1"
-        custom:numOfTabs="4" />
+        custom:numOfTabs="3" />
 
 </RelativeLayout>
