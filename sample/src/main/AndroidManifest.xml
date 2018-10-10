@@ -9,9 +9,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.fridayof1995.sample.MainActivity"
-            android:theme="@style/Theme.AppCompat.DayNight.DarkActionBar"
-            >
+        <activity
+            android:name=".MainActivity"
+            android:theme="@style/FullScreen" />
+
+        <activity
+            android:name=".LauncherActivity"
+            android:theme="@style/Theme.AppCompat.DayNight.DarkActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

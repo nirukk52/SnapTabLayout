@@ -18,7 +18,7 @@ import kotlinx.android.synthetic.main.smart_tabs_view.view.*
 /**
  * Created by Depression on 11-08-2018.
  */
-class AnimatedTabLayout
+class SnapTabLayout
 @JvmOverloads
 constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0)
     : FrameLayout(context, attrs, defStyleAttr), ViewPager.OnPageChangeListener {
@@ -31,7 +31,7 @@ constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
             , 80f, resources.displayMetrics).toInt()
 
     var expandedAt: Int = 0
-    var numOfTabs: Int = 3
+    var numOfTabs: Int = 5
     var mEndViewsTranslationX: Int? = null
     var mMidViewsTranslationX: Int? = null
     var mCenterTranslationY: Int? = null
@@ -53,6 +53,9 @@ constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
             if (numOfTabs <= 3) {
                 mid_start.visibility = View.GONE
                 mid_end.visibility = View.GONE
+            } else {
+                mid_start.visibility = View.VISIBLE
+                mid_end.visibility = View.VISIBLE
             }
         } finally {
             a.recycle()
@@ -64,19 +67,25 @@ constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
         LayoutInflater.from(context).inflate(R.layout.smart_tabs_view, this, true)
     }
 
+
+    override fun onPageSelected(position: Int) {
+    }
+
+    override fun onPageScrollStateChanged(position: Int) {
+    }
+
     override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
         Log.e("onPageScrolled", "position $position positionOffset$positionOffset")
         if (position == expandedAt - 1) expandTabs(positionOffset, position) // expand
         else if (position == expandedAt) collapseTabs(positionOffset, position) // collapse
-
     }
-
 
     private fun collapseTabs(positionOffset: Float, position: Int) {
         // collapses at position ==  1
         setTabChangingColor(positionOffset)
         if (numOfTabs <= 3) {
-            mIndicator.translationX = (positionOffset * (start.x + start.width - convertDpToPixel(8f, context)))
+            mIndicator.translationX =
+                    (positionOffset * (start.x + start.width - convertDpToPixel(8f, context)))
         } else {
 //            when (position) {
 //                expandedAt - 1 -> {
@@ -105,17 +114,21 @@ constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
         mIndicator.translationX = (positionOffset * (start.x + start.width - convertDpToPixel(8f, context)))
     }
 
-    override fun onPageSelected(position: Int) {
-    }
-
-    override fun onPageScrollStateChanged(position: Int) {
-    }
-
 
     fun setupWithViewPager(viewPager: ViewPager) {
+        if (numOfTabs <= 3) {
+            mid_start.visibility = View.GONE
+            mid_end.visibility = View.GONE
+        } else {
+            mid_start.visibility = View.VISIBLE
+            mid_end.visibility = View.VISIBLE
+        }
+        if(expandedAt == 0){
+            expandTabs(0.0f,1)
+        }
         viewPager.addOnPageChangeListener(this)
         viewPager.setPageTransformer(true, StackTransformer())
-        bottom_center.getViewTreeObserver().addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
+        bottom_center.viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
             override fun onGlobalLayout() {
 
                 defaultOffsetFromCenter = (center.width / 2)
@@ -133,22 +146,22 @@ constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
                 }
                 mCenterTranslationY = height - bottom_center.bottom
 
-                bottom_center.getViewTreeObserver().removeOnGlobalLayoutListener(this)
+                bottom_center.viewTreeObserver.removeOnGlobalLayoutListener(this)
                 viewPager.currentItem = expandedAt
             }
         })
 
-        center.setOnClickListener() {
+        center.setOnClickListener {
             if (viewPager.currentItem != 1) {
                 viewPager.currentItem = 1
             }
         }
-        start.setOnClickListener() {
+        start.setOnClickListener {
             if (viewPager.currentItem != 0) {
                 viewPager.currentItem = 0
             }
         }
-        end.setOnClickListener() {
+        end.setOnClickListener {
             if (viewPager.currentItem != 2) {
                 viewPager.currentItem = 2
             }
@@ -170,21 +183,21 @@ constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
     }
 
 
-    fun expandAt(expandedAt: Int) {
-        this.expandedAt = expandedAt
-        invalidate()
-        requestLayout()
-        expandTabs(1f, expandedAt)
-    }
+//    fun setExpandedAt(expandedAt: Int) {
+//        this.expandedAt = expandedAt
+//        invalidate()
+//        requestLayout()
+//        expandTabs(1f, expandedAt)
+//    }
 
     fun collpaseAt(collapseAt: Int) {
         collapseTabs(1f, 1)
     }
 
-    public fun setIcons(@DrawableRes largeCenterIcon: Int = R.drawable.ic_ring,
-                        @DrawableRes smallCenterIcon: Int = R.drawable.ic_view_white,
-                        @DrawableRes startIcon: Int = R.drawable.ic_comment_white,
-                        @DrawableRes endIcon: Int = R.drawable.ic_white_whatshot) {
+    fun setIcons(@DrawableRes largeCenterIcon: Int = R.drawable.ic_ring,
+                 @DrawableRes smallCenterIcon: Int = R.drawable.ic_view_white,
+                 @DrawableRes startIcon: Int = R.drawable.ic_comment_white,
+                 @DrawableRes endIcon: Int = R.drawable.ic_white_whatshot) {
         center.setImageResource(largeCenterIcon)
         bottom_center.setImageResource(smallCenterIcon)
         start.setImageResource(startIcon)
@@ -192,7 +205,7 @@ constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
     }
 
     private fun getDefaultIcons(): ArrayList<Int> {
-        var icons: ArrayList<Int> = ArrayList<Int>()
+        val icons: ArrayList<Int> = ArrayList<Int>()
         icons.add(R.drawable.ic_ring)
         icons.add(R.drawable.ic_view_white)
         icons.add(R.drawable.ic_comment_white)

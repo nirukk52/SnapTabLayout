@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <integer-array name="numOfTabs">
+        <item>3</item>
+        <item>5</item>
+    </integer-array>
+
+</resources>

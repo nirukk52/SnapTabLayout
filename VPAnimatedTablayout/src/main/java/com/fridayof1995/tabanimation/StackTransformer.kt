@@ -9,7 +9,7 @@ import android.view.View
  */
 class StackTransformer : ViewPager.PageTransformer {
     override fun transformPage(view: View, position: Float) {
-        view.setPivotX(if (position < 0) (view.width).toFloat() else 1f)
+        view.pivotX = if (position < 0) (view.width).toFloat() else 1f
         view.scaleX = if (position < 0) 1f   else 1f
     }
 }
