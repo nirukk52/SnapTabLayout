@@ -26,9 +26,6 @@ constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
             , 80f, resources.displayMetrics).toInt()
 
     private var expandedAt: Int = 0
-        set(value) {
-            field = value
-        }
     var numOfTabs: NumOfTabs = NumOfTabs.FIVE
         set(value) {
             field = value
@@ -181,7 +178,7 @@ constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
         })
 
         center.setOnClickListener {
-            if (viewPager.currentItem != 1) {
+            if (viewPager.currentItem != expandedAt) {
                 viewPager.currentItem = expandedAt
             }
         }
@@ -191,18 +188,18 @@ constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
             }
         }
         end.setOnClickListener {
-            if (viewPager.currentItem != 2) {
-                viewPager.currentItem = 2
+            if (viewPager.currentItem != numOfTabs.value - 1) {
+                viewPager.currentItem = numOfTabs.value - 1
             }
         }
         mid_start.setOnClickListener {
-            if (viewPager.currentItem != 0) {
-                viewPager.currentItem = 0
+            if (viewPager.currentItem != expandedAt - 1) {
+                viewPager.currentItem = expandedAt - 1
             }
         }
         mid_end.setOnClickListener {
-            if (viewPager.currentItem != 2) {
-                viewPager.currentItem = 2
+            if (viewPager.currentItem != expandedAt + 1) {
+                viewPager.currentItem = expandedAt + 1
             }
         }
     }
@@ -229,21 +226,21 @@ constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
     }
 
     fun setMiddleIcons(@DrawableRes secondIcon: Int,
-                               @DrawableRes thirdIcon: Int) {
+                       @DrawableRes thirdIcon: Int) {
         mid_start.setImageResource(secondIcon)
         mid_end.setImageResource(thirdIcon)
     }
 
     fun setCenterIcons(@DrawableRes largeCenterIcon: Int,
-                               @Nullable @DrawableRes smallBottomCenterIcon: Int) {
+                       @DrawableRes smallBottomCenterIcon: Int = 0) {
         center.setImageResource(largeCenterIcon)
-        bottom_center.setImageResource(largeCenterIcon)
+        bottom_center.setImageResource(smallBottomCenterIcon)
     }
 
-    fun setStartAndEndIcons(@DrawableRes largeCenterIcon: Int,
-                                    @Nullable @DrawableRes smallBottomCenterIcon: Int) {
-        center.setImageResource(largeCenterIcon)
-        bottom_center.setImageResource(largeCenterIcon)
+    fun setStartAndEndIcons(@DrawableRes startIcon: Int,
+                            @Nullable @DrawableRes endIcon: Int) {
+        start.setImageResource(startIcon)
+        end.setImageResource(endIcon)
     }
 
     fun setBackground(@DrawableRes background: Int) {

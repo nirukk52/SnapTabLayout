@@ -25,6 +25,7 @@ class MainActivity : AppCompatActivity() {
         // tabLayout.expandedAt = intent.getIntExtra("expandedAt", 1)
         //  tabLayout.setSelectedBackground(R.drawable.selected_background)
         tabLayout.setBackground(R.drawable.tab_gradient)
+        tabLayout.setCenterIcons(R.drawable.ic_add_button,R.drawable.ic_view_white)
         val numTab = intent.getIntExtra("numOfTabs", 3)
         tabLayout.numOfTabs = if (numTab.equals(SnapTabLayout.NumOfTabs.THREE.value)) {
             SnapTabLayout.NumOfTabs.THREE
@@ -32,13 +33,6 @@ class MainActivity : AppCompatActivity() {
             SnapTabLayout.NumOfTabs.FIVE
         }
         tabLayout.setupWithViewPager(viewPager)
-
-//        moveToStart.setOnClickListener { tabLayout.setTabChangingColor(1f) }
-//
-//        moveToCenter.setOnClickListener { tabLayout.setTabChangingColor(0f) }
-//
-//        moveToEnd.setOnClickListener { tabLayout.setTabChangingColor(1f) }
-
 
         viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
