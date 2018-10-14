@@ -2,7 +2,9 @@
 <resources>
 
     <declare-styleable name="VPAnimatedTabLayout">
-        <attr name="expandedAt" format="integer" />
-        <attr name="numOfTabs" format="integer" />
+        <attr name="numOfTabs" format="enum">
+            <enum name="three" value="3" />
+            <enum name="five" value="5" />
+        </attr>
     </declare-styleable>
 </resources>

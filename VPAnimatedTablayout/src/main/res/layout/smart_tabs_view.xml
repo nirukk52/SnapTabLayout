@@ -10,7 +10,6 @@
         android:id="@+id/transitionBackground"
         android:layout_width="match_parent"
         android:layout_height="130dp"
-        android:background="@drawable/tab_gradient"
         app:layout_constraintBottom_toBottomOf="parent" />
 
     <ImageButton

@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.widget.ArrayAdapter
+import com.fridayof1995.tabanimation.SnapTabLayout
 import kotlinx.android.synthetic.main.activity_launcher.*
 
 
@@ -13,17 +14,18 @@ class LauncherActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_launcher)
 
-        val arraySpinner = arrayOf("3", "5")
+
+        val numOfTabs = ArrayList<Int>()//Creating an empty arraylist
+        numOfTabs.add(SnapTabLayout.NumOfTabs.THREE.value)//Adding object in arraylist
+        numOfTabs.add(SnapTabLayout.NumOfTabs.FIVE.value)
         val adapter = ArrayAdapter(this,
-                android.R.layout.simple_spinner_item, arraySpinner)
+                android.R.layout.simple_spinner_item, numOfTabs)
         spinner_num_tabs.adapter = adapter
 
         btGo.setOnClickListener {
             val intent = Intent(this@LauncherActivity, MainActivity::class.java)
-            intent.putExtra("expandedAt", etExpandsAt.text.toString().toInt())
             intent.putExtra("numOfTabs", spinner_num_tabs.selectedItem.toString().toInt())
             startActivity(intent)
         }
-
     }
 }
