@@ -6,12 +6,13 @@ This library is the implementation of TabLayout as seen on popular messaging app
 
 It can be used to animate Three or Five tabs.
 
-# 👏 Demo
+## 👏 Demo
 ![fabulousfilter demo 1](https://raw.githubusercontent.com/Krupen/FabulousFilter/master/newDemo1.gif)  ![fabulousfilter demo 1](https://raw.githubusercontent.com/Krupen/FabulousFilter/master/newDemo2.gif)
 
 ## Contents
  - [Installation](#installation)
- - [How to use / Sample](#Usage)
+ - [How to use / Sample](#usage)
+ 	- [Customization](#customization)
  - [Bugs and feedback](#bugs-and-feedback)
 
 ## 💻 Installation
@@ -31,7 +32,7 @@ It can be used to animate Three or Five tabs.
 	custom:numOfTabs="three"
         />
 ```
-# Parameters
+### Customization
 
 * ### Tab Number (Required)
 This parameter specifies the number of tabs required:
