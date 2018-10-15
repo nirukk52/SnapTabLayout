@@ -7,7 +7,7 @@ This library is the implementation of TabLayout as seen on popular messaging app
 It can be used to animate Three or Five tabs.
 
 ## 👏 Demo
-![snaptablayout demo 1](https://media.giphy.com/media/555rKFJneGiMVWvOSl/giphy.gif)  ![snaptablayout demo 1](https://user-images.githubusercontent.com/28961063/46969354-6a021b80-d0d3-11e8-90fc-f2b94365060d.gif)  ![snaptablayout demo 1](https://user-images.githubusercontent.com/28961063/46969611-4c818180-d0d4-11e8-8ec0-429e2ba9df19.gif)   
+![snaptablayout demo 1](https://media.giphy.com/media/555rKFJneGiMVWvOSl/giphy.gif)  ![snaptablayout demo 1](https://user-images.githubusercontent.com/28961063/46969922-3c1dd680-d0d5-11e8-81b6-60cf032dcb92.gif)  ![snaptablayout demo 1](https://user-images.githubusercontent.com/28961063/46969922-3c1dd680-d0d5-11e8-81b6-60cf032dcb92.gif)   
 
 ## Contents
  - [Installation](#installation)
