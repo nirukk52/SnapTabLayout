@@ -12,7 +12,7 @@ import android.view.View
 import android.view.ViewTreeObserver
 import android.widget.FrameLayout
 import android.widget.ImageButton
-import kotlinx.android.synthetic.main.smart_tabs_view.view.*
+import kotlinx.android.synthetic.main.snap_tab_view.view.*
 
 
 /**
@@ -68,7 +68,7 @@ constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 
 
     private fun init() {
-        LayoutInflater.from(context).inflate(R.layout.smart_tabs_view, this, true)
+        LayoutInflater.from(context).inflate(R.layout.snap_tab_view, this, true)
         bottomCenter = findViewById<ImageButton>(R.id.bottom_center)
     }
 
