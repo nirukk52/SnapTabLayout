@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="tab_indicator_corner_radius">5dp</dimen>
+    <dimen name="tab_image_padding">8dp</dimen>
 </resources>

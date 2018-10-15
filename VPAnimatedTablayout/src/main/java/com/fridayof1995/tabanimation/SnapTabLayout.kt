@@ -11,6 +11,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewTreeObserver
 import android.widget.FrameLayout
+import android.widget.ImageButton
 import kotlinx.android.synthetic.main.smart_tabs_view.view.*
 
 
@@ -35,6 +36,9 @@ constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
     private var mEndViewsTranslationX: Int? = null
     private var mMidViewsTranslationX: Int? = null
     private var mCenterTranslationY: Int? = null
+    //var bottomCenter: ImageButton = (ImageButton(context))
+    lateinit var bottomCenter: ImageButton
+
 
     init {
         init()
@@ -65,6 +69,7 @@ constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 
     private fun init() {
         LayoutInflater.from(context).inflate(R.layout.smart_tabs_view, this, true)
+        bottomCenter = findViewById<ImageButton>(R.id.bottom_center)
     }
 
 
@@ -126,12 +131,6 @@ constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
                 ((positionOffset - 1) * (start.x + start.width - convertDpToPixel(8f, context)))
     }
 
-    private fun moveIndicatorWithFiveTabs(positionOffset: Float, topViewX: Float, topViewY: Float) {
-        Log.e("moveIndicator", "widthOfTop $topViewX positionOffset$positionOffset")
-        mIndicator.x = topViewX
-        // mIndicator.right = topViewY.toInt()
-    }
-
 
     private fun collapseTabs(positionOffset: Float, position: Int) {
         // collapses at position ==  1
@@ -155,7 +154,7 @@ constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
         }
         viewPager.addOnPageChangeListener(this)
         viewPager.setPageTransformer(true, StackTransformer())
-        bottom_center.viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
+        bottomCenter.viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
             override fun onGlobalLayout() {
                 defaultOffsetFromCenter = (center.width / 2)
                 if (numOfTabs == NumOfTabs.FIVE) {
@@ -170,9 +169,9 @@ constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
                     mMidViewsTranslationX = (center.x - mid_start.x - defaultOffsetFromCenter + 40).toInt()
                     mEndViewsTranslationX = (center.x - start.x - mid_start.width - defaultOffsetFromCenter + 40).toInt()
                 }
-                mCenterTranslationY = height - bottom_center.bottom
+                mCenterTranslationY = height - bottomCenter.bottom
 
-                bottom_center.viewTreeObserver.removeOnGlobalLayoutListener(this)
+                bottomCenter.viewTreeObserver.removeOnGlobalLayoutListener(this)
                 viewPager.currentItem = expandedAt
             }
         })
@@ -190,6 +189,10 @@ constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
         end.setOnClickListener {
             if (viewPager.currentItem != numOfTabs.value - 1) {
                 viewPager.currentItem = numOfTabs.value - 1
+            }
+            if (numOfTabs == NumOfTabs.FIVE) {
+                mIndicator.x =
+                        end.x + (end.width / 8)
             }
         }
         mid_start.setOnClickListener {
@@ -225,20 +228,21 @@ constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
         end.setBackgroundResource(backgroundColor)
     }
 
-    fun setMiddleIcons(@DrawableRes secondIcon: Int,
-                       @DrawableRes thirdIcon: Int) {
-        mid_start.setImageResource(secondIcon)
-        mid_end.setImageResource(thirdIcon)
+    fun setMiddleIcons(@DrawableRes secondIconFromStart: Int = 0,
+                       @DrawableRes secondIconFromEnd: Int = 0) {
+        mid_start.setImageResource(secondIconFromStart)
+        mid_end.setImageResource(secondIconFromEnd)
     }
 
     fun setCenterIcons(@DrawableRes largeCenterIcon: Int,
-                       @DrawableRes smallBottomCenterIcon: Int = 0) {
+                       @Nullable @DrawableRes smallBottomCenterIcon: Int? = 0) {
         center.setImageResource(largeCenterIcon)
-        bottom_center.setImageResource(smallBottomCenterIcon)
+        if (smallBottomCenterIcon != null) bottomCenter.setImageResource(smallBottomCenterIcon)
+        else bottomCenter.setImageResource(0)
     }
 
-    fun setStartAndEndIcons(@DrawableRes startIcon: Int,
-                            @Nullable @DrawableRes endIcon: Int) {
+    fun setCornerIcons(@DrawableRes startIcon: Int,
+                       @DrawableRes endIcon: Int) {
         start.setImageResource(startIcon)
         end.setImageResource(endIcon)
     }
@@ -253,7 +257,7 @@ constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 
         if (centerTranslationY != null) {
             center.translationY = centerTranslationY * 4f
-            bottom_center.translationY = centerTranslationY * 4f
+            bottomCenter.translationY = centerTranslationY * 4f
         }
 
         val centerScale: Float = 1 - fractionFromCenter
@@ -262,16 +266,16 @@ constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
             center.scaleX = centerScale
             center.scaleY = centerScale
         }
-        bottom_center.alpha = centerScale
-        bottom_center.scaleY = centerScale
-        bottom_center.scaleX = centerScale
+        bottomCenter.alpha = centerScale
+        bottomCenter.scaleY = centerScale
+        bottomCenter.scaleX = centerScale
     }
 
 
     private fun setTabChangingColor(fractionFromCenter: Float, position: Int) {
 //        val color = mArgbEvaluator.evaluate(fractionFromCenter, mCenterColor, mSideColor) as Int
 //       center.setColorFilter(color)
-//       bottom_center.setColorFilter(color)
+//       bottomCenter.setColorFilter(color)
 //       start.setColorFilter(color)
 //       end.setColorFilter(color)
 
@@ -285,6 +289,7 @@ constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
         moveAndScaleCenter(fractionFromCenter)
     }
 
+    //TODO Change background of tab on selection.
     private fun changeSelectedBackground(position: Int) {
 
         when (position) {

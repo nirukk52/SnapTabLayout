@@ -1,16 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <android.support.v7.widget.CardView
+    <RelativeLayout
         android:id="@+id/backdropCard"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="80dp"
-        app:cardBackgroundColor="@android:color/white"
-        app:cardCornerRadius="@dimen/backdrop_rect_corner_radius" />
+        android:background="@drawable/shape_round_rect" />
 
     <Button
         android:id="@+id/btFragmentNumber"

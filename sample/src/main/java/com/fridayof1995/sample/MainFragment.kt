@@ -3,11 +3,12 @@ package com.fridayof1995.sample
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.support.v7.widget.CardView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.RelativeLayout
+import com.fridayof1995.tabanimation.SnapTabLayout
 
 
 class MainFragment : Fragment() {
@@ -26,10 +27,21 @@ class MainFragment : Fragment() {
         val view: View = inflater.inflate(R.layout.fragment_main, container, false)
 
         val btFragmentNumber: Button = view.findViewById(R.id.btFragmentNumber) as Button
-        val backdropCard: CardView = view.findViewById(R.id.backdropCard) as CardView
+        val backdropCard: RelativeLayout = view.findViewById(R.id.backdropCard) as RelativeLayout
 
         if (fragmentNumber == activity?.intent?.getIntExtra("expandedAt", 3)) {
             backdropCard.visibility = View.INVISIBLE
+        }
+
+        val numTab = activity?.intent?.getIntExtra("numOfTabs", 3)
+        if (numTab!!.equals(SnapTabLayout.NumOfTabs.FIVE.value)) {
+            if (fragmentNumber == 2) {
+                backdropCard.visibility = View.INVISIBLE
+            }
+        } else if (numTab.equals(SnapTabLayout.NumOfTabs.THREE.value)) {
+            if (fragmentNumber == 1) {
+                backdropCard.visibility = View.INVISIBLE
+            }
         }
 
         btFragmentNumber.text = fragmentNumber.toString()
