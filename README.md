@@ -7,7 +7,9 @@ This library is the implementation of TabLayout as seen on popular messaging app
 It can be used to animate Three or Five tabs.
 
 ## 👏 Demo
-![fabulousfilter demo 1](https://raw.githubusercontent.com/Krupen/FabulousFilter/master/newDemo1.gif)  ![fabulousfilter demo 1](https://raw.githubusercontent.com/Krupen/FabulousFilter/master/newDemo2.gif) 
+![snaptablayout demo 1](
+        https://raw.githubusercontent.com/nirukk52/SnapTabLayout/gifeditor_20181015_224012.gif
+      )  ![fabulousfilter demo 1](https://raw.githubusercontent.com/Krupen/FabulousFilter/master/newDemo2.gif) 
 
 ## Contents
  - [Installation](#installation)
