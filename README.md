@@ -58,8 +58,6 @@ This parameter sets the background:
 setBackground(R.drawable.fall_gradient); // Default black_fall gradient as seen in demo.
 ```
 
-#### And that's it! Enjoy!
-
 ## Bugs and Feedback
 
 For bugs, feature requests, and discussion please use [GitHub Issues](https://github.com/leandroBorgesFerreira/LoadingButtonAndroid/issues).
@@ -69,17 +67,6 @@ For bugs, feature requests, and discussion please use [GitHub Issues](https://gi
 ```
 Niranjan Kurambhatti
 ```
-- Website (http://wajahatkarim.com)
-- Twitter (http://twitter.com/wajahatkarim)
-- Medium (http://www.medium.com/@wajahatkarim3)
-- LinkedIn (http://www.linkedin.com/in/wajahatkarim)
-
-## 👍 How to Contribute
-1. Fork it
-2. Create your feature branch (git checkout -b my-new-feature)
-3. Commit your changes (git commit -am 'Add some feature')
-4. Push to the branch (git push origin my-new-feature)
-5. Create new Pull Request
 
 ## 📃 License
 
