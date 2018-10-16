@@ -1,3 +1,5 @@
+[ ![Download](https://api.bintray.com/packages/nirukk52/maven/SnapTablayout/images/download.svg) ](https://bintray.com/nirukk52/maven/SnapTablayout/_latestVersion)
+
 # SnapTabLayout
 
 ### Show some :heart: and star the repo to support the project
@@ -17,7 +19,7 @@ It can be used to animate Three or Five tabs.
 
 ## 💻 Installation
 
-    implementation 'com.fridayof1995.tabanimation:SnapTabLayout:0.0.1'
+    implementation 'com.fridayof1995.tabanimation:SnapTabLayout:0.0.2'
 
 ## ❔ Usage
 ### Step 1
