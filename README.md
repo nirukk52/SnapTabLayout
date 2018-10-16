@@ -20,7 +20,7 @@ It can be used to animate Three or Five tabs.
     implementation 'com.fridayof1995.tabanimation:SnapTabLayout:0.0.1'
 
 ## ❔ Usage
-
+### Step 1
 ```xml    
 <com.fridayof1995.tabanimation.SnapTabLayout
         android:id="@+id/tabLayout"
@@ -32,8 +32,7 @@ It can be used to animate Three or Five tabs.
 	custom:numOfTabs="three"
         />
 ```
-### 📐 Customization
-
+### Step 2
 * ### Tab Number (Required)
 This parameter specifies the number of tabs required:
 ```
@@ -44,20 +43,44 @@ setNumOfTabs(SnapTabLayout.NumOfTabs.FIVE);
 
 * ### Setting the icons (Required)
 This parameter specifies the icons to be inflated:
+All of the below are ImageButtons so you can set image, background etc.
+![tab_name_explain](https://user-images.githubusercontent.com/28961063/47033253-f4a95000-d191-11e8-91b6-c95fce21b439.png)
 ```
-setCenterIcons(R.drawable.ic_ring, null); // Pass null if you want to hide the bottom center Icon.
-setCornerIcons(R.drawable.ic_start_first,R.drawable.ic_end_last); // Set the start and end corner icons.
+tabLayout.smallCenterButton.setImageResource()
+tabLayout.largeCenterButton.setImageResource()
+tabLayout.startButton.setImageResource()
+tabLayout.endButton.setImageResource()
 
-// Required only for Five tabs.
-setMiddleIcons(R.drawable.ic_second,R.drawable.ic_secondlast); // Set the second and second-last icon.
+//Below required only when using five tabs.
+tabLayout.midStart.setImageResource()
+tabLayout.midEnd.setImageResource()
 ```
+
+### 📐 Customization
 
 * ### Background (Optional)
-This parameter sets the background:
+This parameter sets the background in extended and collapsed tab mode:
 ```
-setBackground(R.drawable.fall_gradient); // Default black_fall gradient as seen in demo.
+tabLayout.setBackgroundCollapsed(R.drawable.tab_gradient_collapsed) // By default black fall gradient.
+tabLayout.setBackgroundExpanded(R.drawable.tab_gradient_expanded)
 ```
 
+* ### Color Transition in Icons (Optional)
+This parameter sets the *ColorFilter* in extended and collapsed tab mode:
+```
+// When the layout moves from expanded to collapsed: Icons color transitions from white to black.
+tabLayout.setTransitionIconColors(R.color.white, R.color.black)
+
+```
+
+* ### Color Transition in ViewPager Background (Optional)
+This parameter gives a smooth color transition to the background of viewpager as seen in demo:
+```
+tabLayout.setVpTransitionBgColors(LeftSideColor: android.R.color.holo_purple
+                , CenterColor: android.R.color.black
+                , RightSideColor: android.R.color.holo_orange_dark)
+
+```
 ## Bugs and Feedback
 
 For bugs, feature requests, and discussion please use [GitHub Issues](https://github.com/nirukk52/SnapTabLayout/issues).
