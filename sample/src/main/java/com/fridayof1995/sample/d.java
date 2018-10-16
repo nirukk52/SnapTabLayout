@@ -13,14 +13,10 @@ public class d extends AppCompatActivity {
 //    numOfTabs.
 
 
-//    public void intitView(){
-//        SnapTabLayout stl = findViewById(R.id.tabLayout);
-//
-//        stl.setCenterIcons(R.drawable.ic_ring, null);
-//        stl.setMiddleIcons(R.drawable.ic_ring, null);
-//        stl.setCornerIcons(R.drawable.ic_ring, null);
-//        stl.setNumOfTabs(SnapTabLayout.NumOfTabs.THREE);
-//        stl.setBackground(R.drawable.fall_gradient);
-//    }
+    public void intitView(){
+        SnapTabLayout stl = findViewById(R.id.tabLayout);
+
+        stl.settra
+    }
 
 }

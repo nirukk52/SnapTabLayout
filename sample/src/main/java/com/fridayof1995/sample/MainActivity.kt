@@ -1,14 +1,17 @@
 package com.fridayof1995.sample
 
+import android.animation.ArgbEvaluator
 import android.os.Bundle
-import android.support.v4.view.ViewPager
 import android.support.v7.app.AppCompatActivity
 import com.fridayof1995.tabanimation.SnapTabLayout
 import kotlinx.android.synthetic.main.activity_main.*
 
+
 class MainActivity : AppCompatActivity() {
 
     val viewPagerAdapter: ViewPagerAdapter = ViewPagerAdapter(supportFragmentManager);
+
+    val mArgbEvaluator: ArgbEvaluator = ArgbEvaluator()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,38 +34,29 @@ class MainActivity : AppCompatActivity() {
             viewPagerAdapter.addFragment(MainFragment.newInstance(4))
             SnapTabLayout.NumOfTabs.FIVE
         }
-        tabLayout.setBackground(R.drawable.tab_gradient)
+
+        tabLayout.setBackgroundCollapsed(R.drawable.tab_gradient_collapsed)
+        tabLayout.setBackgroundExpanded(R.drawable.tab_gradient_expanded)
+
+        tabLayout.smallCenterButton.setImageResource(R.drawable.ic_view_white)
+        tabLayout.largeCenterButton.setImageResource(R.drawable.ic_ring)
+        tabLayout.startButton.setImageResource(R.drawable.ic_comment_white)
+        tabLayout.endButton.setImageResource(R.drawable.ic_white_whatshot)
+        tabLayout.midStart.setImageResource(R.drawable.ic_white_poll)
+        tabLayout.midEnd.setImageResource(R.drawable.ic_white_email)
+
+     //   tabLayout.setTransitionIconColors(android.R.color.white, R.color.colorGrey)
+
+     //   tabLayout.setIndicatorColor(R.color.colorGrey)
+
+//        tabLayout.setVpTransitionBgColors(android.R.color.holo_purple
+//                , android.R.color.black
+//                , android.R.color.holo_orange_dark)
+
         tabLayout.smallCenterButton.setOnClickListener {
             toast("Bottom Center Clicked. Show some bottom sheet.")
         }
         tabLayout.setupWithViewPager(viewPager)
-
-
-        viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
-            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
-//                if (position == 0) {
-//                    val purple: Int = ContextCompat.getColor(this@MainActivity, android.R.color.holo_purple)
-//
-//                    transitionBackground.setBackgroundColor(
-//                            ContextCompat.getColor(this@MainActivity, android.R.color.holo_purple))
-//                    transitionBackground.alpha = 1 - positionOffset
-//
-//                } else if (position == 1) {
-//                    val orange: Int = ContextCompat.getColor(this@MainActivity, android.R.color.holo_orange_dark)
-//
-//                    transitionBackground.setBackgroundColor(
-//                            ContextCompat.getColor(this@MainActivity, android.R.color.holo_orange_dark))
-//                    transitionBackground.alpha = positionOffset
-//                }
-            }
-
-            override fun onPageSelected(position: Int) {
-            }
-
-            override fun onPageScrollStateChanged(state: Int) {
-
-            }
-        })
     }
 
 }

@@ -26,8 +26,8 @@ constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
     : FrameLayout(context, attrs, defStyleAttr), ViewPager.OnPageChangeListener {
 
     val mArgbEvaluator: ArgbEvaluator = ArgbEvaluator()
-    val mCenterColor: Int = ContextCompat.getColor(context, android.R.color.white)
-    val mSideColor: Int = ContextCompat.getColor(context, android.R.color.black)
+    var mCenterColor: Int = 0
+    var mSideColor: Int = 0
 
     private var defaultOffsetFromCenter: Int = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP
             , 80f, resources.displayMetrics).toInt()
@@ -47,9 +47,13 @@ constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
     lateinit var largeCenterButton: ImageButton
     lateinit var startButton: ImageButton
     lateinit var endButton: ImageButton
-    lateinit var secondButton: ImageButton
-    lateinit var secondLastButton: ImageButton
+    lateinit var midStart: ImageButton
+    lateinit var midEnd: ImageButton
+    lateinit var vpager: ViewPager
 
+    var mBgRight: Int = 0
+    var mBgLeft: Int = 0
+    var mBgCenter: Int = 0
 
     init {
         init()
@@ -84,8 +88,8 @@ constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
         largeCenterButton = findViewById<ImageButton>(R.id.center)
         startButton = findViewById<ImageButton>(R.id.start)
         endButton = findViewById<ImageButton>(R.id.end)
-        secondButton = findViewById<ImageButton>(R.id.mid_start)
-        secondLastButton = findViewById<ImageButton>(R.id.mid_end)
+        midStart = findViewById<ImageButton>(R.id.mid_start)
+        midEnd = findViewById<ImageButton>(R.id.mid_end)
     }
 
 
@@ -159,6 +163,7 @@ constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
     }
 
     fun setupWithViewPager(viewPager: ViewPager) {
+        vpager = viewPager
         if (numOfTabs == NumOfTabs.THREE) {
             mid_start.visibility = View.GONE
             mid_end.visibility = View.GONE
@@ -237,25 +242,6 @@ constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
         mid_end.translationX = -midTranslation
     }
 
-    private fun setSelectedBackground(@DrawableRes backgroundColor: Int) {
-        start.setBackgroundResource(backgroundColor)
-        mid_start.setBackgroundResource(backgroundColor)
-        mid_end.setBackgroundResource(backgroundColor)
-        end.setBackgroundResource(backgroundColor)
-    }
-
-    fun setBackgroundCollapsed(@DrawableRes background: Int) {
-        transitionBackground.setBackgroundResource(background)
-    }
-
-    fun setBackgroundExpanded(@DrawableRes background: Int) {
-        transitionBackground.setBackgroundResource(background)
-    }
-
-    fun setIndicatorColor(@ColorInt colorInt: Int) {
-        mIndicator.setColorFilter(colorInt)
-    }
-
     private fun moveAndScaleCenter(fractionFromCenter: Float) {
 
         val centerTranslationY: Float? = mCenterTranslationY?.times(fractionFromCenter)
@@ -278,25 +264,71 @@ constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 
 
     private fun setTabChangingColor(fractionFromCenter: Float, position: Int) {
-        val color = mArgbEvaluator.evaluate(fractionFromCenter, mCenterColor, mSideColor) as Int
-//        center.setColorFilter(color)
-//        bottomCenter.setColorFilter(color)
-//        start.setColorFilter(color)
-//        end.setColorFilter(color)
 
+        val color = mArgbEvaluator.evaluate(fractionFromCenter, mCenterColor, mSideColor) as Int
+        center.setColorFilter(color)
+        bottom_center.setColorFilter(color)
+        start.setColorFilter(color)
+        end.setColorFilter(color)
+        mid_end.setColorFilter(color)
+        mid_start.setColorFilter(color)
+
+        if (position < expandedAt) {
+
+            val color = mArgbEvaluator.evaluate(fractionFromCenter, mBgCenter, mBgRight) as Int
+            vpager.setBackgroundColor(color)
+
+        } else if (position == expandedAt) {
+
+            val color = mArgbEvaluator.evaluate(fractionFromCenter, mBgCenter, mBgLeft) as Int
+            vpager.setBackgroundColor(color)
+
+        }
         mIndicator.alpha = fractionFromCenter
         mIndicator.scaleX = fractionFromCenter
 
         transitionBackground.alpha = fractionFromCenter
-
+        transitionBackground2.alpha = 1 - fractionFromCenter
 
         moveViews(fractionFromCenter)
         moveAndScaleCenter(fractionFromCenter)
     }
 
+    // Public Methods
+
+    private fun setSelectedBackground(@DrawableRes backgroundColor: Int) {
+        start.setBackgroundResource(backgroundColor)
+        mid_start.setBackgroundResource(backgroundColor)
+        mid_end.setBackgroundResource(backgroundColor)
+        end.setBackgroundResource(backgroundColor)
+    }
+
+    fun setBackgroundCollapsed(background: Int) {
+        transitionBackground.setBackgroundResource(background)
+    }
+
+    fun setBackgroundExpanded(background: Int) {
+        transitionBackground2.setBackgroundResource(background)
+    }
+
+    fun setVpTransitionBgColors(@ColorInt leftSideColor: Int,@ColorInt centerColor: Int,@ColorInt rightSideColor: Int) {
+        mBgLeft = leftSideColor
+        mBgCenter = centerColor
+        mBgRight = rightSideColor
+    }
+
+    fun setTransitionIconColors(@ColorInt centerColor: Int,@ColorInt sideColor: Int) {
+        mCenterColor = centerColor
+        mSideColor = sideColor
+    }
+
+    fun setIndicatorColor(colorInt: Int) {
+        mIndicator.setColorFilter(colorInt)
+    }
+
+
     //TODO Change background of tab on selection.
     private fun changeSelectedBackground(position: Int) {
-
         when (position) {
             0 -> {
                 start.background.alpha = 255

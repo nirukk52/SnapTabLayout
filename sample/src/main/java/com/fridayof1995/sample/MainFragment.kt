@@ -29,10 +29,6 @@ class MainFragment : Fragment() {
         val btFragmentNumber: Button = view.findViewById(R.id.btFragmentNumber) as Button
         val backdropCard: RelativeLayout = view.findViewById(R.id.backdropCard) as RelativeLayout
 
-        if (fragmentNumber == activity?.intent?.getIntExtra("expandedAt", 3)) {
-            backdropCard.visibility = View.INVISIBLE
-        }
-
         val numTab = activity?.intent?.getIntExtra("numOfTabs", 3)
         if (numTab!!.equals(SnapTabLayout.NumOfTabs.FIVE.value)) {
             if (fragmentNumber == 2) {
