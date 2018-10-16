@@ -60,7 +60,7 @@ setBackground(R.drawable.fall_gradient); // Default black_fall gradient as seen 
 
 ## Bugs and Feedback
 
-For bugs, feature requests, and discussion please use [GitHub Issues](https://github.com/leandroBorgesFerreira/LoadingButtonAndroid/issues).
+For bugs, feature requests, and discussion please use [GitHub Issues](https://github.com/nirukk52/SnapTabLayout/issues).
 
 ## 👨 Developed By
 
@@ -70,7 +70,7 @@ Niranjan Kurambhatti
 
 ## 📃 License
 
-    Copyright 2018 Wajahat Karim
+    Copyright 2018 Niranjan Kurambhatti
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
