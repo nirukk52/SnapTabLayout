@@ -1,45 +1,54 @@
 apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: 'com.jfrog.bintray'
 //apply from: 'keystore.gradle'//the file, containing the bintray API key
-ext {
-    // This configuration will result in:
-    // compile '<groupId>:<artifactId>:<libVersion>'
-    groupId = 'com.fridayof1995.tabanimation' // package name of the project
-    artifactId = "SnapTabLayout" // module name of the library
-    libVersion = "0.0.1"
-}
-version = libVersion
-group = groupId
+//ext {
+//    // This configuration will result in:
+//    // compile '<groupId>:<artifactId>:<libVersion>'
+//    groupId = 'com.fridayof1995.tabanimation' // package name of the project
+//    artifactId = "SnapTabLayout" // module name of the library
+//    libVersion = "0.0.1"
+//}
+version = libraryVersion
+group = publishedGroupId
 //take a look at https://github.com/bintray/gradle-bintray-plugin#buildgradle
 
 // Bintray
 Properties properties = new Properties()
 properties.load(project.rootProject.file('local.properties').newDataInputStream())
+
 bintray {
-    user = properties.getProperty("bintray.user") // Your bintray User
-    key = properties.getProperty("bintray.apikey")  // Defined in keystore.gradle file
+    user = properties.getProperty("bintray.user")
+    key = properties.getProperty("bintray.apikey")
+
     configurations = ['archives']
-    publish = true //[Default: false] Whether version should be auto published after an upload
-    override = false //[Default: false] Whether to override version artifacts already published
-    // Package configuration. The plugin will use the repo and name properties to check if the
-    // package already exists. In that case, there's no need to configure the other package
-    // properties (like userOrg, desc, etc).
     pkg {
-        repo = "maven" //bintray repo
-        name = "SnapTabLayout" //bintray package
+        repo = bintrayRepo
+        name = bintrayName
+        desc = libraryDescription
+        websiteUrl = siteUrl
+        vcsUrl = gitUrl
+        licenses = allLicenses
+        publish = true
+        publicDownloadNumbers = true
         version {
-            name = libVersion
+            desc = libraryDescription
+            gpg {
+                sign = true //Determines whether to GPG sign the files. The default is false
+                passphrase = properties.getProperty("bintray.gpg.password")
+                //Optional. The passphrase for GPG signing'
+            }
         }
     }
 }
+
 install {
     repositories.mavenInstaller {
         pom.project {
             packaging 'aar'
-            groupId groupId
-            artifactId artifactId
-            version libVersion
-            name artifactId // pom.project.name must be same as bintray.pkg.name
+            groupId publishedGroupId
+            artifactId artifact
+            version libraryVersion
+            name artifact // pom.project.name must be same as bintray.pkg.name
         }
     }
 }

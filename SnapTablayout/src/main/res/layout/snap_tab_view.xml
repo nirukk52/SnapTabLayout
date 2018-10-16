@@ -80,7 +80,7 @@
         app:layout_constraintStart_toEndOf="@id/bottom_center"
         app:layout_constraintTop_toBottomOf="@id/center" />
 
-    <View
+    <ImageView
         android:id="@+id/mIndicator"
         android:layout_width="48dp"
         android:layout_height="4dp"

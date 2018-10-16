@@ -32,10 +32,7 @@ class MainActivity : AppCompatActivity() {
             SnapTabLayout.NumOfTabs.FIVE
         }
         tabLayout.setBackground(R.drawable.tab_gradient)
-        tabLayout.setCenterIcons(R.drawable.shadow_ring, R.drawable.ic_view_white)
-        tabLayout.setCornerIcons(R.drawable.ic_comment_white, R.drawable.ic_white_whatshot)
-        tabLayout.setMiddleIcons(R.drawable.ic_white_poll, R.drawable.ic_white_email)
-        tabLayout.bottomCenter.setOnClickListener {
+        tabLayout.smallCenterButton.setOnClickListener {
             toast("Bottom Center Clicked. Show some bottom sheet.")
         }
         tabLayout.setupWithViewPager(viewPager)

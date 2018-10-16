@@ -1,8 +1,10 @@
 package com.fridayof1995.tabanimation
 
+import android.animation.ArgbEvaluator
 import android.content.Context
+import android.support.annotation.ColorInt
 import android.support.annotation.DrawableRes
-import android.support.annotation.Nullable
+import android.support.v4.content.ContextCompat
 import android.support.v4.view.ViewPager
 import android.util.AttributeSet
 import android.util.Log
@@ -23,6 +25,10 @@ class SnapTabLayout
 constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0)
     : FrameLayout(context, attrs, defStyleAttr), ViewPager.OnPageChangeListener {
 
+    val mArgbEvaluator: ArgbEvaluator = ArgbEvaluator()
+    val mCenterColor: Int = ContextCompat.getColor(context, android.R.color.white)
+    val mSideColor: Int = ContextCompat.getColor(context, android.R.color.black)
+
     private var defaultOffsetFromCenter: Int = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP
             , 80f, resources.displayMetrics).toInt()
 
@@ -37,7 +43,12 @@ constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
     private var mMidViewsTranslationX: Int? = null
     private var mCenterTranslationY: Int? = null
     //var bottomCenter: ImageButton = (ImageButton(context))
-    lateinit var bottomCenter: ImageButton
+    lateinit var smallCenterButton: ImageButton
+    lateinit var largeCenterButton: ImageButton
+    lateinit var startButton: ImageButton
+    lateinit var endButton: ImageButton
+    lateinit var secondButton: ImageButton
+    lateinit var secondLastButton: ImageButton
 
 
     init {
@@ -69,7 +80,12 @@ constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 
     private fun init() {
         LayoutInflater.from(context).inflate(R.layout.snap_tab_view, this, true)
-        bottomCenter = findViewById<ImageButton>(R.id.bottom_center)
+        smallCenterButton = findViewById<ImageButton>(R.id.bottom_center)
+        largeCenterButton = findViewById<ImageButton>(R.id.center)
+        startButton = findViewById<ImageButton>(R.id.start)
+        endButton = findViewById<ImageButton>(R.id.end)
+        secondButton = findViewById<ImageButton>(R.id.mid_start)
+        secondLastButton = findViewById<ImageButton>(R.id.mid_end)
     }
 
 
@@ -154,7 +170,7 @@ constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
         }
         viewPager.addOnPageChangeListener(this)
         viewPager.setPageTransformer(true, StackTransformer())
-        bottomCenter.viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
+        smallCenterButton.viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
             override fun onGlobalLayout() {
                 defaultOffsetFromCenter = (center.width / 2)
                 if (numOfTabs == NumOfTabs.FIVE) {
@@ -169,9 +185,9 @@ constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
                     mMidViewsTranslationX = (center.x - mid_start.x - defaultOffsetFromCenter + 40).toInt()
                     mEndViewsTranslationX = (center.x - start.x - mid_start.width - defaultOffsetFromCenter + 40).toInt()
                 }
-                mCenterTranslationY = height - bottomCenter.bottom
+                mCenterTranslationY = height - smallCenterButton.bottom
 
-                bottomCenter.viewTreeObserver.removeOnGlobalLayoutListener(this)
+                smallCenterButton.viewTreeObserver.removeOnGlobalLayoutListener(this)
                 viewPager.currentItem = expandedAt
             }
         })
@@ -228,27 +244,16 @@ constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
         end.setBackgroundResource(backgroundColor)
     }
 
-    fun setMiddleIcons(@DrawableRes secondIconFromStart: Int = 0,
-                       @DrawableRes secondIconFromEnd: Int = 0) {
-        mid_start.setImageResource(secondIconFromStart)
-        mid_end.setImageResource(secondIconFromEnd)
-    }
-
-    fun setCenterIcons(@DrawableRes largeCenterIcon: Int,
-                       @Nullable @DrawableRes smallBottomCenterIcon: Int? = 0) {
-        center.setImageResource(largeCenterIcon)
-        if (smallBottomCenterIcon != null) bottomCenter.setImageResource(smallBottomCenterIcon)
-        else bottomCenter.setImageResource(0)
-    }
-
-    fun setCornerIcons(@DrawableRes startIcon: Int,
-                       @DrawableRes endIcon: Int) {
-        start.setImageResource(startIcon)
-        end.setImageResource(endIcon)
-    }
-
-    fun setBackground(@DrawableRes background: Int) {
+    fun setBackgroundCollapsed(@DrawableRes background: Int) {
         transitionBackground.setBackgroundResource(background)
+    }
+
+    fun setBackgroundExpanded(@DrawableRes background: Int) {
+        transitionBackground.setBackgroundResource(background)
+    }
+
+    fun setIndicatorColor(@ColorInt colorInt: Int) {
+        mIndicator.setColorFilter(colorInt)
     }
 
     private fun moveAndScaleCenter(fractionFromCenter: Float) {
@@ -257,7 +262,7 @@ constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 
         if (centerTranslationY != null) {
             center.translationY = centerTranslationY * 4f
-            bottomCenter.translationY = centerTranslationY * 4f
+            smallCenterButton.translationY = centerTranslationY * 4f
         }
 
         val centerScale: Float = 1 - fractionFromCenter
@@ -266,18 +271,18 @@ constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
             center.scaleX = centerScale
             center.scaleY = centerScale
         }
-        bottomCenter.alpha = centerScale
-        bottomCenter.scaleY = centerScale
-        bottomCenter.scaleX = centerScale
+        smallCenterButton.alpha = centerScale
+        smallCenterButton.scaleY = centerScale
+        smallCenterButton.scaleX = centerScale
     }
 
 
     private fun setTabChangingColor(fractionFromCenter: Float, position: Int) {
-//        val color = mArgbEvaluator.evaluate(fractionFromCenter, mCenterColor, mSideColor) as Int
-//       center.setColorFilter(color)
-//       bottomCenter.setColorFilter(color)
-//       start.setColorFilter(color)
-//       end.setColorFilter(color)
+        val color = mArgbEvaluator.evaluate(fractionFromCenter, mCenterColor, mSideColor) as Int
+//        center.setColorFilter(color)
+//        bottomCenter.setColorFilter(color)
+//        start.setColorFilter(color)
+//        end.setColorFilter(color)
 
         mIndicator.alpha = fractionFromCenter
         mIndicator.scaleX = fractionFromCenter
