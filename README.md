@@ -2,14 +2,12 @@
 
 # SnapTabLayout
 
-### Show some :heart: and star the repo to support the project
-
 This library is the implementation of TabLayout as seen on popular messaging app Snapchat <a href="https://www.snapchat.com/download" target="_blank">Snapchat.com</a>.
 
 It can be used to animate Three or Five tabs.
 
 ## 👏 Demo
-![snaptablayout demo 1](https://user-images.githubusercontent.com/28961063/46969922-3c1dd680-d0d5-11e8-81b6-60cf032dcb92.gif)  ![snaptablayout demo 1](https://user-images.githubusercontent.com/28961063/46969922-3c1dd680-d0d5-11e8-81b6-60cf032dcb92.gif)  ![snaptablayout demo 1](https://user-images.githubusercontent.com/28961063/46969922-3c1dd680-d0d5-11e8-81b6-60cf032dcb92.gif)   
+![snaptablayout demo 1](https://user-images.githubusercontent.com/28961063/46969922-3c1dd680-d0d5-11e8-81b6-60cf032dcb92.gif)  ![snaptablayout demo 2](https://user-images.githubusercontent.com/28961063/47111273-b3d43880-d270-11e8-9132-f4caa43a0e90.gif)   
 
 ## Contents
  - [Installation](#installation)
@@ -58,7 +56,7 @@ tabLayout.midStart.setImageResource()
 tabLayout.midEnd.setImageResource()
 ```
 
-### 📐 Customization
+## 📐 Customization
 
 * ### Background (Optional)
 This parameter sets the background in extended and collapsed tab mode:
