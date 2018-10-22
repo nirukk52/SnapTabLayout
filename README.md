@@ -1,4 +1,4 @@
-[ ![Download](https://api.bintray.com/packages/nirukk52/maven/SnapTablayout/images/download.svg) ](https://bintray.com/nirukk52/maven/SnapTablayout/_latestVersion) [![Android Arsenal]( https://img.shields.io/badge/Android%20Arsenal-SnapTabLayout-green.svg?style=flat )]( https://android-arsenal.com/details/1/7243 ) [![Material Up](https://img.shields.io/badge/materialup-SnapTablayout-blue.svg)](https://www.uplabs.com/posts/snaptablayout) [![Android_Weekly](https://img.shields.io/badge/androidweekly-%23332-blue.svg)](http://androidweekly.net/issues/issue-332)
+[ ![Download](https://api.bintray.com/packages/nirukk52/maven/SnapTablayout/images/download.svg) ](https://bintray.com/nirukk52/maven/SnapTablayout/_latestVersion) [![Android Arsenal]( https://img.shields.io/badge/Android%20Arsenal-SnapTabLayout-blue.svg?style=flat )]( https://android-arsenal.com/details/1/7243 ) [![Material Up](https://img.shields.io/badge/materialup-SnapTablayout-blue.svg)](https://www.uplabs.com/posts/snaptablayout) [![Android_Weekly](https://img.shields.io/badge/androidweekly-%23332-blue.svg)](http://androidweekly.net/issues/issue-332)
 
 # SnapTabLayout
 
