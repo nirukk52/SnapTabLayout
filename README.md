@@ -1,4 +1,4 @@
-[ ![Download](https://api.bintray.com/packages/nirukk52/maven/SnapTablayout/images/download.svg) ](https://bintray.com/nirukk52/maven/SnapTablayout/_latestVersion) [![Android Arsenal]( https://img.shields.io/badge/Android%20Arsenal-SnapTabLayout-green.svg?style=flat )]( https://android-arsenal.com/details/1/7243 )[![Material Up](https://img.shields.io/badge/MaterialUp-FabulousFilter-2856b6.svg)](https://www.uplabs.com/posts/snaptablayout)
+[ ![Download](https://api.bintray.com/packages/nirukk52/maven/SnapTablayout/images/download.svg) ](https://bintray.com/nirukk52/maven/SnapTablayout/_latestVersion) [![Android Arsenal]( https://img.shields.io/badge/Android%20Arsenal-SnapTabLayout-green.svg?style=flat )]( https://android-arsenal.com/details/1/7243 ) [![Material Up](https://img.shields.io/badge/materialup-SnapTablayout-blue.svg)](https://www.uplabs.com/posts/snaptablayout) [![Android_Weekly](https://img.shields.io/badge/androidweekly-%23332-blue.svg)](http://androidweekly.net/issues/issue-332)
 
 # SnapTabLayout
 
@@ -84,6 +84,7 @@ tabLayout.setVpTransitionBgColors(LeftSideColor: android.R.color.holo_purple
 ## Bugs and Feedback
 
 For bugs, feature requests, and discussion please use [GitHub Issues](https://github.com/nirukk52/SnapTabLayout/issues).
+If you wish to get your app featured here mail me at niranjan.kurambhatti@gmail.com
 
 ## 👨 Developed By
 
