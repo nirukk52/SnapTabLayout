@@ -1,4 +1,4 @@
-[ ![Download](https://api.bintray.com/packages/nirukk52/maven/SnapTablayout/images/download.svg) ](https://bintray.com/nirukk52/maven/SnapTablayout/_latestVersion) [![Android Arsenal]( https://img.shields.io/badge/Android%20Arsenal-SnapTabLayout-green.svg?style=flat )]( https://android-arsenal.com/details/1/7243 )
+[ ![Download](https://api.bintray.com/packages/nirukk52/maven/SnapTablayout/images/download.svg) ](https://bintray.com/nirukk52/maven/SnapTablayout/_latestVersion) [![Android Arsenal]( https://img.shields.io/badge/Android%20Arsenal-SnapTabLayout-green.svg?style=flat )]( https://android-arsenal.com/details/1/7243 )[![Material Up](https://img.shields.io/badge/MaterialUp-FabulousFilter-2856b6.svg)](https://www.uplabs.com/posts/snaptablayout)
 
 # SnapTabLayout
 
