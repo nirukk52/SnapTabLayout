@@ -17,7 +17,7 @@ It can be used to animate Three or Five tabs.
 
 ## 💻 Installation
 
-    implementation 'com.fridayof1995.tabanimation:SnapTabLayout:0.0.2'
+    implementation 'com.fridayof1995.tabanimation:SnapTabLayout:0.0.3'
 
 ## ❔ Usage
 ### Step 1
