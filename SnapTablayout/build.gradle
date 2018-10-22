@@ -13,12 +13,12 @@ ext {
     libraryName = 'SnapTablayout'
     artifact = 'SnapTablayout'
 
-    libraryDescription = 'TabLayout animation with viewpager.'
+    libraryDescription = 'Android library for fluid tablayout animation.'
 
     siteUrl = 'https://github.com/nirukk52/SnapTabLayout'
     gitUrl = 'https://github.com/nirukk52/SnapTabLayout.git'
 
-    libraryVersion = '0.0.1'
+    libraryVersion = '0.0.3'
 
     developerId = 'nirukk52'
     developerName = 'Niranjan Kurambhatti'
@@ -61,10 +61,8 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 
-    compileOnly 'com.android.support:appcompat-v7:28.0.0'
     compileOnly 'com.android.support.constraint:constraint-layout:1.1.3'
     compileOnly 'com.android.support:support-v4:28.0.0'
-    compileOnly 'com.android.support:design:28.0.0'
     compileOnly "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }
 

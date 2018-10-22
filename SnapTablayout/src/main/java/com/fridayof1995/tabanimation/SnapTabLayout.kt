@@ -4,7 +4,6 @@ import android.animation.ArgbEvaluator
 import android.content.Context
 import android.support.annotation.ColorInt
 import android.support.annotation.DrawableRes
-import android.support.v4.content.ContextCompat
 import android.support.v4.view.ViewPager
 import android.util.AttributeSet
 import android.util.Log
@@ -100,53 +99,61 @@ constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
     }
 
     override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
-        Log.e("onPageScrolled", "position $position positionOffset$positionOffset")
 
         if (position == expandedAt - 1) expandTabs(positionOffset, position) // expand
         else if (position == expandedAt) collapseTabs(positionOffset, position) // collapse
 
         if (numOfTabs == NumOfTabs.THREE) {
-            if (position == expandedAt - 1) moveIndicatorToEnd(positionOffset, position) // expand
-            else if (position == expandedAt) moveIndicatorToStart(positionOffset, position) // collapse
+            moveIndicatorWithThreeTabs(positionOffset,position)
         } else {
-            if (position < expandedAt) when (position) {
-                0 -> {
-                    mIndicator.x =
-                            start.x + (start.width / 8)
-                }
-                1 -> {
-                    mIndicator.x =
-                            mid_start.x + (mid_start.width / 8)
-                }
-            }
-            else if (position > expandedAt) when (position) {
-                3 -> {
-                    mIndicator.x =
-                            mid_end.x + (mid_end.width / 8)
-                }
-                4 -> {
-                    mIndicator.x =
-                            end.x + (end.width / 8)
-
-                }
-            }
-            else if (position == expandedAt) {
-                mIndicator.x =
-                        mid_end.x + (mid_end.width / 8)
-            }
-
+            moveIndicatorWithFiveTabs(position)
         }
 
         //   changeSelectedBackground(position)
     }
 
 
-    private fun moveIndicatorToStart(positionOffset: Float, position: Int) {
+    private fun moveIndicatorWithThreeTabs(positionOffset: Float, position: Int) {
+        if (position == expandedAt - 1) moveIndicatorToEnd(positionOffset) // expand
+        else if (position == expandedAt) moveIndicatorToStart(positionOffset) // collapse
+    }
+
+    private fun moveIndicatorWithFiveTabs(position: Int) {
+
+        if (position < expandedAt) when (position) {
+            0 -> {
+                mIndicator.x =
+                        start.x + (start.width / 8)
+            }
+            1 -> {
+                mIndicator.x =
+                        mid_start.x + (mid_start.width / 8)
+            }
+        }
+        else if (position > expandedAt) when (position) {
+            3 -> {
+                mIndicator.x =
+                        mid_end.x + (mid_end.width / 8)
+            }
+            4 -> {
+                mIndicator.x =
+                        end.x + (end.width / 8)
+
+            }
+        }
+        else if (position == expandedAt) {
+            mIndicator.x =
+                    mid_end.x + (mid_end.width / 8)
+        }
+    }
+
+
+    private fun moveIndicatorToStart(positionOffset: Float) {
         mIndicator.translationX =
                 (positionOffset * (start.x + start.width - convertDpToPixel(6f, context)))
     }
 
-    private fun moveIndicatorToEnd(positionOffset: Float, position: Int) {
+    private fun moveIndicatorToEnd(positionOffset: Float) {
         mIndicator.translationX =
                 ((positionOffset - 1) * (start.x + start.width - convertDpToPixel(8f, context)))
     }
@@ -155,13 +162,20 @@ constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
     private fun collapseTabs(positionOffset: Float, position: Int) {
         // collapses at position ==  1
         setTabChangingColor(positionOffset, position)
+        //changeSelectedBackground(position,positionOffset)
     }
 
     private fun expandTabs(positionOffset: Float, position: Int) {
         // expands at position == 0
         setTabChangingColor(1 - positionOffset, position)
+        //changeSelectedBackground(position,1 - positionOffset)
     }
 
+    /**
+     * Hide extra buttons if using three tabs.
+     * Sets onClickListener on each view.
+     * Sets defaultOffset from center while collapsing.
+     */
     fun setupWithViewPager(viewPager: ViewPager) {
         vpager = viewPager
         if (numOfTabs == NumOfTabs.THREE) {
@@ -242,6 +256,7 @@ constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
         mid_end.translationX = -midTranslation
     }
 
+
     private fun moveAndScaleCenter(fractionFromCenter: Float) {
 
         val centerTranslationY: Float? = mCenterTranslationY?.times(fractionFromCenter)
@@ -253,6 +268,7 @@ constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 
         val centerScale: Float = 1 - fractionFromCenter
 
+        // Scale from 1 to 0.85 while collapsing.
         if (centerScale > 0.85f) {
             center.scaleX = centerScale
             center.scaleY = centerScale
@@ -263,6 +279,11 @@ constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
     }
 
 
+    /**
+     * Transitions icon colors.
+     * Transitions ViewPager background color.
+     * Transitions SnapTablayout background.
+     */
     private fun setTabChangingColor(fractionFromCenter: Float, position: Int) {
 
         val color = mArgbEvaluator.evaluate(fractionFromCenter, mCenterColor, mSideColor) as Int
@@ -275,13 +296,13 @@ constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 
         if (position < expandedAt) {
 
-            val color = mArgbEvaluator.evaluate(fractionFromCenter, mBgCenter, mBgRight) as Int
-            vpager.setBackgroundColor(color)
+            val colorToLeft = mArgbEvaluator.evaluate(fractionFromCenter, mBgCenter, mBgLeft) as Int
+            vpager.setBackgroundColor(colorToLeft)
 
         } else if (position == expandedAt) {
 
-            val color = mArgbEvaluator.evaluate(fractionFromCenter, mBgCenter, mBgLeft) as Int
-            vpager.setBackgroundColor(color)
+            val colorToRight = mArgbEvaluator.evaluate(fractionFromCenter, mBgCenter, mBgRight) as Int
+            vpager.setBackgroundColor(colorToRight)
 
         }
         mIndicator.alpha = fractionFromCenter
@@ -311,34 +332,36 @@ constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
         transitionBackground2.setBackgroundResource(background)
     }
 
-    fun setVpTransitionBgColors(@ColorInt leftSideColor: Int,@ColorInt centerColor: Int,@ColorInt rightSideColor: Int) {
+    fun setVpTransitionBgColors(@ColorInt leftSideColor: Int, @ColorInt centerColor: Int, @ColorInt rightSideColor: Int) {
         mBgLeft = leftSideColor
         mBgCenter = centerColor
         mBgRight = rightSideColor
     }
 
-    fun setTransitionIconColors(@ColorInt centerColor: Int,@ColorInt sideColor: Int) {
+    fun setTransitionIconColors(@ColorInt centerColor: Int, @ColorInt sideColor: Int) {
         mCenterColor = centerColor
         mSideColor = sideColor
     }
 
-    fun setIndicatorColor(colorInt: Int) {
+    fun setIndicatorColor(@ColorInt colorInt: Int) {
         mIndicator.setColorFilter(colorInt)
     }
 
 
     //TODO Change background of tab on selection.
-    private fun changeSelectedBackground(position: Int) {
+    private fun changeSelectedBackground(position: Int, fractionFromCenter: Float) {
+        val alphaValue = mArgbEvaluator.evaluate(fractionFromCenter, 0, 255) as Int
+        Log.e("background", "position $position fractionFromCenter $fractionFromCenter  alphaValue$alphaValue ")
         when (position) {
             0 -> {
-                start.background.alpha = 255
+                start.background.alpha = alphaValue
                 mid_start.background.alpha = 0
                 mid_end.background.alpha = 0
                 end.background.alpha = 0
             }
             1 -> {
-                start.background.alpha = 0
-                mid_start.background.alpha = 255
+                start.background.alpha = alphaValue
+                mid_start.background.alpha = alphaValue
                 mid_end.background.alpha = 0
                 end.background.alpha = 0
             }
@@ -351,14 +374,14 @@ constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
             3 -> {
                 start.background.alpha = 0
                 mid_start.background.alpha = 0
-                mid_end.background.alpha = 255
+                mid_end.background.alpha = alphaValue
                 end.background.alpha = 0
             }
             4 -> {
                 start.background.alpha = 0
                 mid_start.background.alpha = 0
                 mid_end.background.alpha = 0
-                end.background.alpha = 255
+                end.background.alpha = alphaValue
             }
         }
     }
