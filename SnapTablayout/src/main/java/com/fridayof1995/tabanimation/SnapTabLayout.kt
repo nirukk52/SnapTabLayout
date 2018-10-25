@@ -107,6 +107,7 @@ constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
             moveIndicatorWithThreeTabs(positionOffset,position)
         } else {
             moveIndicatorWithFiveTabs(position)
+          //    animateIndicatorWithFiveTabs()
         }
 
         //   changeSelectedBackground(position)
