@@ -84,7 +84,6 @@ tabLayout.setVpTransitionBgColors(LeftSideColor: android.R.color.holo_purple
 ## Bugs and Feedback
 
 For bugs, feature requests, and discussion please use [GitHub Issues](https://github.com/nirukk52/SnapTabLayout/issues).
-If you wish to get your app featured here mail me at niranjan.kurambhatti@gmail.com
 
 ## 👨 Developed By
 
