@@ -10,9 +10,9 @@ It can be used to animate Three or Five tabs.
 ![snaptablayout demo 1](https://user-images.githubusercontent.com/28961063/46969922-3c1dd680-d0d5-11e8-81b6-60cf032dcb92.gif)  ![snaptablayout demo 2](https://user-images.githubusercontent.com/28961063/47112776-f26bf200-d274-11e8-9475-879e402a1aa9.gif)   
 
 ## Contents
- - [Installation](#installation)
- - [How to use / Sample](#usage)
- 	- [Customization](#customization)
+ - [Installation](#💻 Installation)
+ - [How to use / Sample](#❔ Usage)
+ 	- [Customization](#📐 Customization)
  - [Bugs and feedback](#bugs-and-feedback)
 
 ## 💻 Installation
