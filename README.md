@@ -1,5 +1,5 @@
 
-# SnapTabLayout [![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?text=Get%20over%20170%20free%20design%20blocks%20based%20on%20Bootstrap%204&url=Android library for fluid tablayout animation&hashtags=android,design,animation,androiddev,developers)
+# SnapTabLayout [![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?text=Android%20library%20for%20fluid%20tablayout%20animation&url=https://github.com/nirukk52/SnapTabLayout&hashtags=android,design,animation,androiddev,developers)
 [ ![Download](https://api.bintray.com/packages/nirukk52/maven/SnapTablayout/images/download.svg) ](https://bintray.com/nirukk52/maven/SnapTablayout/_latestVersion) [![Android Arsenal]( https://img.shields.io/badge/Android%20Arsenal-SnapTabLayout-blue.svg?style=flat )]( https://android-arsenal.com/details/1/7243 ) [![Material Up](https://img.shields.io/badge/materialup-SnapTablayout-blue.svg)](https://www.uplabs.com/posts/snaptablayout) [![Android_Weekly](https://img.shields.io/badge/androidweekly-%23332-blue.svg)](http://androidweekly.net/issues/issue-332)
 
 This library is the implementation of TabLayout as seen on popular messaging app Snapchat <a href="https://www.snapchat.com/download" target="_blank">Snapchat.com</a>.
