@@ -40,14 +40,16 @@ class MainActivity : AppCompatActivity() {
         tabLayout.setBackgroundExpanded(R.drawable.tab_gradient_expanded)
 
         tabLayout.smallCenterButton.setImageResource(R.drawable.ic_view_white)
-        tabLayout.largeCenterButton.setImageResource(R.drawable.ic_ring)
+        tabLayout.largeCenterButton.setImageResource(R.drawable.shadow_ring)
         tabLayout.startButton.setImageResource(R.drawable.ic_comment_white)
         tabLayout.endButton.setImageResource(R.drawable.ic_white_whatshot)
         tabLayout.midStart.setImageResource(R.drawable.ic_white_poll)
         tabLayout.midEnd.setImageResource(R.drawable.ic_white_email)
 
-        tabLayout.setTransitionIconColors(ContextCompat.getColor(this@MainActivity, android.R.color.white)
-                , ContextCompat.getColor(this@MainActivity, R.color.colorGrey))
+//        tabLayout.setTransitionIconColors(ContextCompat.getColor(this@MainActivity, android.R.color.white)
+//                , ContextCompat.getColor(this@MainActivity, R.color.colorGrey))
+
+        tabLayout.setCenterScale(0.85f)
 
         tabLayout.setIndicatorColor(ContextCompat.getColor(this@MainActivity, R.color.colorGrey))
 

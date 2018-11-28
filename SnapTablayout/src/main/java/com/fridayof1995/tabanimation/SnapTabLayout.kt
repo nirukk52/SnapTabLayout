@@ -1,6 +1,7 @@
 package com.fridayof1995.tabanimation
 
 import android.animation.ArgbEvaluator
+import android.animation.FloatEvaluator
 import android.content.Context
 import android.support.annotation.ColorInt
 import android.support.annotation.DrawableRes
@@ -24,9 +25,13 @@ class SnapTabLayout
 constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0)
     : FrameLayout(context, attrs, defStyleAttr), ViewPager.OnPageChangeListener {
 
+
     val mArgbEvaluator: ArgbEvaluator = ArgbEvaluator()
     var mCenterColor: Int = 0
     var mSideColor: Int = 0
+    var mCenterScale: Float = 0.80f
+    var mCenterMovePosition: Int = 0
+    var mIsCenterMovable: Boolean = true
 
     private var defaultOffsetFromCenter: Int = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP
             , 80f, resources.displayMetrics).toInt()
@@ -69,11 +74,13 @@ constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
                 mid_start.visibility = View.GONE
                 mid_end.visibility = View.GONE
                 expandedAt = 1
+                mCenterMovePosition = 1
             } else {
                 numOfTabs = NumOfTabs.FIVE
                 mid_start.visibility = View.VISIBLE
                 mid_end.visibility = View.VISIBLE
                 expandedAt = 2
+                mCenterMovePosition = 1
             }
         } finally {
             a.recycle()
@@ -92,19 +99,21 @@ constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
     }
 
 
-    override fun onPageSelected(position: Int) {
+    override fun onPageScrollStateChanged(state: Int) {
+
+        //if(mCenterMovePosition = state)
     }
 
-    override fun onPageScrollStateChanged(position: Int) {
+    override fun onPageSelected(position: Int) {
+        Log.e("onPageSelected", "position   $position")
     }
 
     override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
-
         if (position == expandedAt - 1) expandTabs(positionOffset, position) // expand
         else if (position == expandedAt) collapseTabs(positionOffset, position) // collapse
 
         if (numOfTabs == NumOfTabs.THREE) {
-            moveIndicatorWithThreeTabs(positionOffset,position)
+            moveIndicatorWithThreeTabs(positionOffset, position)
         } else {
             moveIndicatorWithFiveTabs(position)
         }
@@ -213,16 +222,19 @@ constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 
         center.setOnClickListener {
             if (viewPager.currentItem != expandedAt) {
+                mIsCenterMovable = true
                 viewPager.currentItem = expandedAt
             }
         }
         start.setOnClickListener {
             if (viewPager.currentItem != 0) {
+                mIsCenterMovable = false
                 viewPager.currentItem = 0
             }
         }
         end.setOnClickListener {
             if (viewPager.currentItem != numOfTabs.value - 1) {
+                mIsCenterMovable = false
                 viewPager.currentItem = numOfTabs.value - 1
             }
             if (numOfTabs == NumOfTabs.FIVE) {
@@ -232,11 +244,13 @@ constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
         }
         mid_start.setOnClickListener {
             if (viewPager.currentItem != expandedAt - 1) {
+                mIsCenterMovable = false
                 viewPager.currentItem = expandedAt - 1
             }
         }
         mid_end.setOnClickListener {
             if (viewPager.currentItem != expandedAt + 1) {
+                mIsCenterMovable = false
                 viewPager.currentItem = expandedAt + 1
             }
         }
@@ -267,12 +281,11 @@ constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
         }
 
         val centerScale: Float = 1 - fractionFromCenter
+        val mScaleEvaluator = FloatEvaluator()
+        val scale = mScaleEvaluator.evaluate(fractionFromCenter, 1, mCenterScale)
+        center.scaleX = scale
+        center.scaleY = scale
 
-        // Scale from 1 to 0.85 while collapsing.
-        if (centerScale > 0.85f) {
-            center.scaleX = centerScale
-            center.scaleY = centerScale
-        }
         smallCenterButton.alpha = centerScale
         smallCenterButton.scaleY = centerScale
         smallCenterButton.scaleX = centerScale
@@ -312,7 +325,9 @@ constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
         transitionBackground2.alpha = 1 - fractionFromCenter
 
         moveViews(fractionFromCenter)
-        moveAndScaleCenter(fractionFromCenter)
+        if (mIsCenterMovable) {
+            moveAndScaleCenter(fractionFromCenter)
+        }
     }
 
     // Public Methods
@@ -347,11 +362,15 @@ constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
         mIndicator.setColorFilter(colorInt)
     }
 
+    fun setCenterScale(scaleDownCenterIcon: Float) {
+        mCenterScale = scaleDownCenterIcon
+    }
+
 
     //TODO Change background of tab on selection.
     private fun changeSelectedBackground(position: Int, fractionFromCenter: Float) {
         val alphaValue = mArgbEvaluator.evaluate(fractionFromCenter, 0, 255) as Int
-        Log.e("background", "position $position fractionFromCenter $fractionFromCenter  alphaValue$alphaValue ")
+        //  Log.e("background", "position $position fractionFromCenter $fractionFromCenter  alphaValue$alphaValue ")
         when (position) {
             0 -> {
                 start.background.alpha = alphaValue

@@ -1,9 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<selector xmlns:android="http://schemas.android.com/apk/res/android">
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="oval">
+            <stroke
+                android:width="10dp"
+                android:color="#05000000" />
+            <padding
+                android:bottom="4dp"
+                android:left="4dp"
+                android:right="4dp"
+                android:top="4dp" />
+        </shape>
+    </item>
     <item>
         <shape android:shape="oval">
             <solid android:color="@android:color/transparent" />
-            <stroke android:width="4dp" android:color="@android:color/white" />
+            <stroke
+                android:width="6dp"
+                android:color="@android:color/white" />
         </shape>
     </item>
-</selector>
+</layer-list>
