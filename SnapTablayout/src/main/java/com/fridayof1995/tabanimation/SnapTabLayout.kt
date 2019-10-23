@@ -90,12 +90,12 @@ constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 
     private fun init() {
         LayoutInflater.from(context).inflate(R.layout.snap_tab_view, this, true)
-        smallCenterButton = findViewById<ImageButton>(R.id.bottom_center)
-        largeCenterButton = findViewById<ImageButton>(R.id.center)
-        startButton = findViewById<ImageButton>(R.id.start)
-        endButton = findViewById<ImageButton>(R.id.end)
-        midStart = findViewById<ImageButton>(R.id.mid_start)
-        midEnd = findViewById<ImageButton>(R.id.mid_end)
+        smallCenterButton = findViewById(R.id.bottom_center)
+        largeCenterButton = findViewById(R.id.center)
+        startButton = findViewById(R.id.start)
+        endButton = findViewById(R.id.end)
+        midStart = findViewById(R.id.mid_start)
+        midEnd = findViewById(R.id.mid_end)
     }
 
 
