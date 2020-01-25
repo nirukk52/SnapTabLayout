@@ -1,19 +1,19 @@
 package com.fridayof1995.sample
 
-import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentManager
-import android.support.v4.app.FragmentPagerAdapter
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentPagerAdapter
 
 import java.util.*
 
 /**
  * Created by Depression on 10-08-2018.
  */
-class ViewPagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
+class ViewPagerAdapter(fm: androidx.fragment.app.FragmentManager) : androidx.fragment.app.FragmentPagerAdapter(fm) {
 
-    private val mFragmentList = ArrayList<Fragment>()
+    private val mFragmentList = ArrayList<androidx.fragment.app.Fragment>()
 
-    override fun getItem(position: Int): Fragment {
+    override fun getItem(position: Int): androidx.fragment.app.Fragment {
         if(position == 1){
 
         }
@@ -24,12 +24,12 @@ class ViewPagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
         return mFragmentList.size
     }
 
-    fun addFragment(fragment: Fragment) {
+    fun addFragment(fragment: androidx.fragment.app.Fragment) {
         mFragmentList.add(fragment)
         notifyDataSetChanged()
     }
 
-    fun addFragmentAt(fragment: Fragment, position: Int) {
+    fun addFragmentAt(fragment: androidx.fragment.app.Fragment, position: Int) {
         mFragmentList.add(position, fragment)
         notifyDataSetChanged()
     }

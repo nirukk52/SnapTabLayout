@@ -2,7 +2,7 @@ package com.fridayof1995.sample
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import android.widget.ArrayAdapter
 import com.fridayof1995.tabanimation.SnapTabLayout
 import kotlinx.android.synthetic.main.activity_launcher.*

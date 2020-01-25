@@ -3,9 +3,8 @@ package com.fridayof1995.tabanimation
 import android.animation.ArgbEvaluator
 import android.animation.FloatEvaluator
 import android.content.Context
-import android.support.annotation.ColorInt
-import android.support.annotation.DrawableRes
-import android.support.v4.view.ViewPager
+import androidx.annotation.ColorInt
+import androidx.viewpager.widget.ViewPager
 import android.util.AttributeSet
 import android.util.Log
 import android.util.TypedValue
@@ -23,15 +22,13 @@ import kotlinx.android.synthetic.main.snap_tab_view.view.*
 class SnapTabLayout
 @JvmOverloads
 constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0)
-    : FrameLayout(context, attrs, defStyleAttr), ViewPager.OnPageChangeListener {
+    : FrameLayout(context, attrs, defStyleAttr), androidx.viewpager.widget.ViewPager.OnPageChangeListener {
 
 
     val mArgbEvaluator: ArgbEvaluator = ArgbEvaluator()
     var mCenterColor: Int = 0
     var mSideColor: Int = 0
     var mCenterScale: Float = 0.80f
-    var mCenterMovePosition: Int = 0
-    var mIsCenterMovable: Boolean = true
 
     private var defaultOffsetFromCenter: Int = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP
             , 80f, resources.displayMetrics).toInt()
@@ -43,17 +40,18 @@ constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
             invalidate()
             requestLayout()
         }
+
     private var mEndViewsTranslationX: Int? = null
     private var mMidViewsTranslationX: Int? = null
     private var mCenterTranslationY: Int? = null
-    //var bottomCenter: ImageButton = (ImageButton(context))
+
     lateinit var smallCenterButton: ImageButton
     lateinit var largeCenterButton: ImageButton
     lateinit var startButton: ImageButton
     lateinit var endButton: ImageButton
     lateinit var midStart: ImageButton
     lateinit var midEnd: ImageButton
-    lateinit var vpager: ViewPager
+    lateinit var vpager: androidx.viewpager.widget.ViewPager
 
     var mBgRight: Int = 0
     var mBgLeft: Int = 0
@@ -74,30 +72,26 @@ constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
                 mid_start.visibility = View.GONE
                 mid_end.visibility = View.GONE
                 expandedAt = 1
-                mCenterMovePosition = 1
             } else {
                 numOfTabs = NumOfTabs.FIVE
                 mid_start.visibility = View.VISIBLE
                 mid_end.visibility = View.VISIBLE
                 expandedAt = 2
-                mCenterMovePosition = 1
             }
         } finally {
             a.recycle()
         }
     }
 
-
     private fun init() {
         LayoutInflater.from(context).inflate(R.layout.snap_tab_view, this, true)
-        smallCenterButton = findViewById(R.id.bottom_center)
-        largeCenterButton = findViewById(R.id.center)
-        startButton = findViewById(R.id.start)
-        endButton = findViewById(R.id.end)
-        midStart = findViewById(R.id.mid_start)
-        midEnd = findViewById(R.id.mid_end)
+        smallCenterButton = findViewById<ImageButton>(R.id.bottom_center)
+        largeCenterButton = findViewById<ImageButton>(R.id.center)
+        startButton = findViewById<ImageButton>(R.id.start)
+        endButton = findViewById<ImageButton>(R.id.end)
+        midStart = findViewById<ImageButton>(R.id.mid_start)
+        midEnd = findViewById<ImageButton>(R.id.mid_end)
     }
-
 
     override fun onPageScrollStateChanged(state: Int) {
 
@@ -117,10 +111,8 @@ constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
         } else {
             moveIndicatorWithFiveTabs(position)
         }
-
         //   changeSelectedBackground(position)
     }
-
 
     private fun moveIndicatorWithThreeTabs(positionOffset: Float, position: Int) {
         if (position == expandedAt - 1) moveIndicatorToEnd(positionOffset) // expand
@@ -156,7 +148,6 @@ constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
         }
     }
 
-
     private fun moveIndicatorToStart(positionOffset: Float) {
         mIndicator.translationX =
                 (positionOffset * (start.x + start.width - convertDpToPixel(6f, context)))
@@ -166,7 +157,6 @@ constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
         mIndicator.translationX =
                 ((positionOffset - 1) * (start.x + start.width - convertDpToPixel(8f, context)))
     }
-
 
     private fun collapseTabs(positionOffset: Float, position: Int) {
         // collapses at position ==  1
@@ -185,7 +175,7 @@ constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
      * Sets onClickListener on each view.
      * Sets defaultOffset from center while collapsing.
      */
-    fun setupWithViewPager(viewPager: ViewPager) {
+    fun setupWithViewPager(viewPager: androidx.viewpager.widget.ViewPager) {
         vpager = viewPager
         if (numOfTabs == NumOfTabs.THREE) {
             mid_start.visibility = View.GONE
@@ -222,19 +212,16 @@ constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 
         center.setOnClickListener {
             if (viewPager.currentItem != expandedAt) {
-                mIsCenterMovable = true
                 viewPager.currentItem = expandedAt
             }
         }
         start.setOnClickListener {
             if (viewPager.currentItem != 0) {
-                mIsCenterMovable = false
                 viewPager.currentItem = 0
             }
         }
         end.setOnClickListener {
             if (viewPager.currentItem != numOfTabs.value - 1) {
-                mIsCenterMovable = false
                 viewPager.currentItem = numOfTabs.value - 1
             }
             if (numOfTabs == NumOfTabs.FIVE) {
@@ -244,13 +231,11 @@ constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
         }
         mid_start.setOnClickListener {
             if (viewPager.currentItem != expandedAt - 1) {
-                mIsCenterMovable = false
                 viewPager.currentItem = expandedAt - 1
             }
         }
         mid_end.setOnClickListener {
             if (viewPager.currentItem != expandedAt + 1) {
-                mIsCenterMovable = false
                 viewPager.currentItem = expandedAt + 1
             }
         }
@@ -269,7 +254,6 @@ constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
         mid_start.translationX = midTranslation
         mid_end.translationX = -midTranslation
     }
-
 
     private fun moveAndScaleCenter(fractionFromCenter: Float) {
 
@@ -290,7 +274,6 @@ constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
         smallCenterButton.scaleY = centerScale
         smallCenterButton.scaleX = centerScale
     }
-
 
     /**
      * Transitions icon colors.
@@ -325,20 +308,11 @@ constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
         transitionBackground2.alpha = 1 - fractionFromCenter
 
         moveViews(fractionFromCenter)
-        if (mIsCenterMovable) {
-            moveAndScaleCenter(fractionFromCenter)
-        }
+        moveAndScaleCenter(fractionFromCenter)
+
     }
 
     // Public Methods
-
-    private fun setSelectedBackground(@DrawableRes backgroundColor: Int) {
-        start.setBackgroundResource(backgroundColor)
-        mid_start.setBackgroundResource(backgroundColor)
-        mid_end.setBackgroundResource(backgroundColor)
-        end.setBackgroundResource(backgroundColor)
-    }
-
     fun setBackgroundCollapsed(background: Int) {
         transitionBackground.setBackgroundResource(background)
     }

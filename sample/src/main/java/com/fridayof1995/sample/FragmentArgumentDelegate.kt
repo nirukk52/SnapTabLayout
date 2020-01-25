@@ -1,16 +1,16 @@
 package com.fridayof1995.sample
 
 import android.os.Bundle
-import android.support.v4.app.Fragment
+import androidx.fragment.app.Fragment
 
 /**
  * Created by Depression on 14-08-2018.
  */
-class FragmentArgumentDelegate<T : Any> : kotlin.properties.ReadWriteProperty<Fragment, T> {
+class FragmentArgumentDelegate<T : Any> : kotlin.properties.ReadWriteProperty<androidx.fragment.app.Fragment, T> {
 
     var value: T? = null
 
-    override operator fun getValue(thisRef: Fragment, property: kotlin.reflect.KProperty<*>): T {
+    override operator fun getValue(thisRef: androidx.fragment.app.Fragment, property: kotlin.reflect.KProperty<*>): T {
         if (value == null) {
             val args = thisRef.arguments ?: throw IllegalStateException("Cannot read property ${property.name} if no arguments have been set")
             @Suppress("UNCHECKED_CAST")
@@ -19,7 +19,7 @@ class FragmentArgumentDelegate<T : Any> : kotlin.properties.ReadWriteProperty<Fr
         return value ?: throw IllegalStateException("Property ${property.name} could not be read")
     }
 
-    override operator fun setValue(thisRef: Fragment, property: kotlin.reflect.KProperty<*>, value: T) {
+    override operator fun setValue(thisRef: androidx.fragment.app.Fragment, property: kotlin.reflect.KProperty<*>, value: T) {
         if (thisRef.arguments == null) thisRef.arguments = android.os.Bundle()
 
         val args = thisRef.arguments

@@ -2,8 +2,8 @@ package com.fridayof1995.sample
 
 import android.animation.ArgbEvaluator
 import android.os.Bundle
-import android.support.v4.content.ContextCompat
-import android.support.v7.app.AppCompatActivity
+import androidx.core.content.ContextCompat
+import androidx.appcompat.app.AppCompatActivity
 import com.fridayof1995.tabanimation.SnapTabLayout
 import kotlinx.android.synthetic.main.activity_main.*
 
