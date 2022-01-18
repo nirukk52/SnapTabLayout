@@ -1,8 +1,8 @@
 
 # SnapTabLayout [![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?text=Android%20library%20for%20fluid%20tablayout%20animation&url=https://github.com/nirukk52/SnapTabLayout&hashtags=android,design,animation,androiddev,developers)
 ### Show some :heart: and star the repo to support the project
-[![CircleCI](https://circleci.com/gh/nirukk52/SnapTabLayout/tree/master.svg?style=shield)](https://circleci.com/gh/nirukk52/SnapTabLayout/tree/master)
-[ ![Download](https://api.bintray.com/packages/nirukk52/maven/SnapTablayout/images/download.svg) ](https://bintray.com/nirukk52/maven/SnapTablayout/_latestVersion)
+<!--[![CircleCI](https://circleci.com/gh/nirukk52/SnapTabLayout/tree/master.svg?style=shield)](https://circleci.com/gh/nirukk52/SnapTabLayout/tree/master) 
+[ ![Download](https://api.bintray.com/packages/nirukk52/maven/SnapTablayout/images/download.svg) ](https://bintray.com/nirukk52/maven/SnapTablayout/_latestVersion) -->
 [![Android Arsenal]( https://img.shields.io/badge/Android%20Arsenal-SnapTabLayout-blue.svg?style=flat )]( https://android-arsenal.com/details/1/7243 ) 
 [![Material Up](https://img.shields.io/badge/materialup-SnapTablayout-blue.svg)](https://www.uplabs.com/posts/snaptablayout) 
 [![Android_Weekly](https://img.shields.io/badge/androidweekly-%23332-blue.svg)](http://androidweekly.net/issues/issue-332)
