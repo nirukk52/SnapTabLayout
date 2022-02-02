@@ -13,5 +13,11 @@ assignees: ''
 
 ## Helpful Links
 
+## Type
+- [ ] Kotlin Conversion
+- [ ] General refactoring. 
+- [ ] Combining similar code.
+- [ ] Creating reusable code
+
 ## Checklist
 - [ ] Requires QA testing
