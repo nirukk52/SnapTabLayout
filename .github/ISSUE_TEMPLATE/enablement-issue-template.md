@@ -2,7 +2,7 @@
 name: Enablement Issue Template
 about: Use this template for enablement items.
 title: "[Enablement]"
-labels: ''
+labels: Medium Priority
 assignees: ''
 
 ---
