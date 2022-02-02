@@ -1,13 +1,13 @@
 ---
 name: Custom issue template
-about: Describe this issue template's purpose here.
+about: Use this templa
 title: "[Enablement]"
 labels: ''
 assignees: ''
 
 ---
 
-As an engineer, I want to blah blah, so that I can blah blah.
+<strong>As an engineer, I want to</strong> blah blah, <strong>so that I can</strong> blah blah.
 
 ## Helpful Links
 <!--- Add any helpful links related to this enablement -->
